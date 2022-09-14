@@ -1,0 +1,29 @@
+<app-menu></app-menu>
+<mat-card class="card">
+  <h1>LISTA CONDUCTORES</h1>
+    <div class="lista-conductor" id="lista_conductor">
+
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Celular</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of listConductores">
+              <tr>
+                <td>{{item.nombre}}</td>
+                <td>{{item.cedula}}</td>
+                <td>{{item.numero_celular}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    
+    <button button mat-fab color="primary" (click)="openDialog()" class="button  mt-5" >
+      <mat-icon>add</mat-icon>
+    </button>
+
+
+  </mat-card>

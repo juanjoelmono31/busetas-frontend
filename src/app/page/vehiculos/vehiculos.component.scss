@@ -1,0 +1,33 @@
+.formulario_vehiculos{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.encabezado{
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+}
+
+
+.input_especial mat-form-field {
+    margin-left: 8px;
+    width: 220px;
+  }
+
+  .button{
+    float: right;
+    width: 43px;
+    height: 43px;
+    
+    &::ng-deep .mat-button-wrapper{
+        padding: 0px;
+    }
+    
+}
+

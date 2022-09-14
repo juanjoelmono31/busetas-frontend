@@ -1,0 +1,13 @@
+.button{
+    float: right;
+}
+
+.button_especial{
+    width: 43px;
+    height: 43px;
+    
+    &::ng-deep .mat-button-wrapper{
+        padding: 0px;
+    }
+    
+}

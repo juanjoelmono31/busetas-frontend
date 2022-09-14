@@ -1,0 +1,55 @@
+<app-menu></app-menu>
+
+<mat-card>
+    <h3>Variables</h3>
+    <div class="formulario_variables input_especial">
+        <form [formGroup]="formVariables" >
+            <div class="form-group ">
+                <mat-form-field mat-form-field class="example-full-width" >
+                    <mat-label>Ingrese el valor del pasaje</mat-label>
+                    <input matInput type="text" name="valor_pasaje" formControlName="valor_pasaje" 
+                        aplaceholder="">
+                </mat-form-field>       
+            </div>
+            <br>
+            <div class="form-group ">
+                <mat-form-field mat-form-field class="example-full-width " >
+                    <mat-label >Ingrese el porcentaje del conductor </mat-label>
+                    <input matInput type="text" name="valor_porcentaje_conductor" formControlName="valor_porcentaje_conductor" 
+                    placeholder="">
+                </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group ">
+              <mat-form-field mat-form-field class="example-full-width " >
+                <mat-label >Ingrese la liquidacion del conductor</mat-label>
+                <input matInput type="text" name="valor_liq_conductor" formControlName="valor_liq_conductor" 
+                    placeholder="">
+              </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group ">
+                <mat-form-field mat-form-field class="example-full-width " >
+                  <mat-label >Bonificacion</mat-label>
+                  <input matInput type="text" name="valor_liq_conductor" formControlName="valor_liq_conductor" 
+                      placeholder="">
+                </mat-form-field>
+                  
+              </div>
+              <br>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Bonificacion</mat-label>
+                <mat-select [(ngModel)]="selectedValue" name="food">
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+           
+        </form>
+    </div>
+</mat-card>

@@ -1,0 +1,115 @@
+
+    <div class="formulario_ctrlVehiculos  input_especial" >
+        <form [formGroup]="formControlVehiculo" (ngSubmit)="crearControlVehiculo()"> 
+               
+        <div class="form-group">
+                <mat-label class="lable">Fecha: &nbsp;&nbsp;{{Fecha}}</mat-label>
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-label class="lable">Conductor: &nbsp;&nbsp;{{conductor.nombre}}</mat-label>
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-form-field mat-form-field class="example-full-width" >
+                <mat-label class="lable">Ruta</mat-label>
+                <input matInput type="number" name="ruta" formControlName="ruta" 
+                placeholder="">
+            </mat-form-field>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-form-field mat-form-field class="example-full-width" >
+                <mat-label class="lable">Numero de vuletas</mat-label>
+                <input matInput type="number" name="numero_vueltas" formControlName="numero_vueltas" class="form-control style"
+                placeholder="">
+            </mat-form-field>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-form-field mat-form-field class="example-full-width" >
+                <mat-label class="lable">Numero de buseta</mat-label>
+                <input matInput type="text" name="numero_buseta" formControlName="numero_buseta" class="form-control style"
+                placeholder="">
+            </mat-form-field>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-form-field mat-form-field class="example-full-width" >
+                <mat-label class="lable">Registradora salida</mat-label>
+                <input matInput type="text" name="reg_salida" formControlName="reg_salida" class="form-control style"
+                placeholder="">
+            </mat-form-field>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-form-field mat-form-field class="example-full-width" >
+                <mat-label class="lable">Registradora llegada</mat-label>
+                <input matInput type="text" name="reg_llegada" formControlName="reg_llegada" class="form-control style"
+                placeholder="">
+            </mat-form-field>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-form-field mat-form-field class="example-full-width" >
+                <mat-label class="lable">Total gastos </mat-label>
+                <input matInput type="text" name="gastos" formControlName="gastos" class="form-control style"
+                placeholder="">
+            </mat-form-field>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <mat-form-field mat-form-field class="example-full-width" >
+                <mat-label class="lable">Neto total </mat-label>
+                <input matInput type="text" name="neto_total" formControlName="neto_total" class="form-control style"
+                    placeholder="">
+            </mat-form-field>
+        </div>
+
+        <br>
+        
+        <div class="form-group">
+            <label class="lable">Seleccione la placa </label>
+            <br>
+            <br>
+            <mat-select class="custom-select" id="inputGroupSelect01" formControlName="placa" >
+              <mat-option value="{{item.placa}}" *ngFor="let item of listPlacas" >{{item.placa}}</mat-option>
+            </mat-select>
+          </div>
+        <br>
+
+        <!-- <div class="form-group">
+            <label class="lable">Seleccione el conductor </label>
+            <br>
+            <br>
+            <mat-select id="inputGroupSelect01" formControlName="conductor" >
+              <mat-option value="{{item.nombre}}" *ngFor="let item of listConductores" >{{item.nombre}}</mat-option>
+            </mat-select>
+          </div> -->
+
+          <br>
+        
+        
+
+
+
+        <mat-dialog-actions align="end">
+            <button mat-button color="warn" mat-dialog-close>Cancelar</button>
+            <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial>Guardar</button>
+          </mat-dialog-actions>
+        
+    </form>  
+        
+    </div>
+
+    <br>
+
+
+
+

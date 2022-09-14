@@ -1,0 +1,42 @@
+
+    <div class="formulario_conductor input_especial" >
+        <form [formGroup]="formConductor" (ngSubmit)="createConductor()" >
+            <div class="form-group">
+                <mat-form-field mat-form-field class="example-full-width" >
+                    <mat-label class="lable"> Ingrese el nombre y apellidos </mat-label>
+                <input matInput type="text" name="nombre" formControlName="nombre" 
+                    placeholder="">
+                </mat-form-field>
+              
+                    
+            </div>
+            <br>
+            <div class="form-group">
+                <mat-form-field mat-form-field class="example-full-width" >
+                    <mat-label class="lable"> Ingrese el numero de celular</mat-label>
+                <input matInput type="text" name="numero_celular" formControlName="numero_celular" 
+                    placeholder="">
+                </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group">
+                <mat-form-field mat-form-field class="example-full-width" >
+                    <mat-label class="lable"> Cedula</mat-label>
+                <input matInput type="text" name="cedula" formControlName="cedula" 
+                    placeholder="">
+                </mat-form-field>
+                
+            </div>
+            <br>
+    
+            <mat-dialog-actions align="end">
+                <button mat-button color="warn" mat-dialog-close>Cancelar</button>
+                <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial>Guardar</button>
+              </mat-dialog-actions>
+
+           
+        </form>
+        
+    </div>
+

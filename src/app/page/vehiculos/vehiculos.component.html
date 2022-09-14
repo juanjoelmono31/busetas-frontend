@@ -1,0 +1,147 @@
+
+
+
+
+    <div class="formulario_vehiculos" id="formulario_vehiculos" >
+  
+        <!-- <div>
+            <h1>LISTA</h1>
+            <li *ngFor="let item of listConductores">
+                <ul>{{item.nombre}}</ul>
+            </li>
+        </div> -->
+        <form [formGroup]="formVehiculo" >
+            <div class="form-group input_especial">
+                <mat-form-field mat-form-field class="example-full-width" >
+                    <mat-label>Ingrese la placa </mat-label>
+                    <input matInput type="text" name="placa" formControlName="placa" 
+                        aplaceholder="">
+                </mat-form-field>       
+            </div>
+            <br>
+            <div class="form-group input_especial">
+                <mat-form-field mat-form-field class="example-full-width " >
+                    <mat-label >Ingrese el numero del vehiculo </mat-label>
+                    <input matInput type="text" name="numero" formControlName="numero" 
+                    placeholder="">
+                </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group input_especial">
+              <mat-form-field mat-form-field class="example-full-width " >
+                <mat-label >Ingrese el nombre del propietario</mat-label>
+                <input matInput type="text" name="propietario" formControlName="propietario" 
+                    placeholder="">
+              </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group input_especial">
+              <mat-form-field mat-form-field class="example-full-width " >
+                <mat-label >Ingrese el modelo del vehiculo</mat-label>
+                <input matInput ype="text" name="modelo" formControlName="modelo" 
+                    placeholder="">
+              </mat-form-field>
+                
+            </div>
+            <br>
+            
+            <div class="form-group input_especial">
+              <mat-form-field mat-form-field class="example-full-width ">
+                <mat-label >Ingrese el rodamiento</mat-label>
+                <input matInput type="text" name="rodamiento" formControlName="rodamiento" 
+                    placeholder="">
+              </mat-form-field>
+              
+            </div>
+            <br>
+            <div class="form-group input_especial">
+              <mat-form-field mat-form-field class="example-full-width ">
+                <mat-label >Ingrese la poliza</mat-label>
+                <input matInput type="text" name="poliza" formControlName="poliza" 
+                    placeholder="">
+              </mat-form-field>
+                
+            </div>
+            <br>
+            <!-- <div formGroupName = 'mantenimiento'>
+                <input type="text" formControlName='fecha'>
+                <input type="text" formControlName='descripcion'>
+                <input type="text" formControlName='valor'>
+            </div> -->
+            <mat-accordion>
+                
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Mantenimiento
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div formArrayName ='taller'>
+                    <div class="row" [formGroupName]="i" *ngFor="let direccion of mantenimiento.controls; let i = index">
+                      <mat-form-field mat-form-field class="example-full-width" >
+                        <mat-label >Fecha</mat-label>
+                        <input matInput type="text" formControlName='fecha'>
+                      </mat-form-field>
+                      <mat-form-field mat-form-field class="example-full-width" >
+                        <mat-label >Descripcion</mat-label>
+                        <input matInput type="text" formControlName='descripcion'>
+                      </mat-form-field>
+                      <mat-form-field mat-form-field class="example-full-width" >
+                        <mat-label >Valor</mat-label>
+                        <input matInput type="text" formControlName='valor'>
+                      </mat-form-field>
+                       
+                    </div>
+                </div>
+                  <button button mat-fab color="primary" class="button" (click)="agregarMantenimiento()">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </mat-expansion-panel>
+              </mat-accordion>
+            <br>
+
+            <mat-accordion>
+                
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Taller
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div formArrayName ='taller'>
+                    <div class="row" [formGroupName]="i" *ngFor="let direccion of taller.controls; let i = index">
+                      <mat-form-field mat-form-field class="example-full-width" >
+                        <mat-label >Fecha</mat-label>
+                        <input matInput type="text" formControlName='fecha'>
+                      </mat-form-field>
+                      <mat-form-field mat-form-field class="example-full-width" >
+                        <mat-label >Descripcion</mat-label>
+                        <input matInput type="text" formControlName='descripcion'>
+                      </mat-form-field>
+                      <mat-form-field mat-form-field class="example-full-width" >
+                        <mat-label >Valor</mat-label>
+                        <input matInput type="text" formControlName='valor'>
+                      </mat-form-field>
+                    </div>
+                </div>
+                  <button button mat-fab color="primary" class="button" (click)="agregar()">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </mat-expansion-panel>
+              </mat-accordion>
+            
+            
+            <br>
+            <mat-dialog-actions align="end">
+                <button mat-button color="warn" mat-dialog-close>Cancelar</button>
+                <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="createVehiculo()">Guardar</button>
+              </mat-dialog-actions>
+
+           
+        </form>
+        
+    </div>
