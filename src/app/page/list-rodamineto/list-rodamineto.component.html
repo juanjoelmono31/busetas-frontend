@@ -1,0 +1,44 @@
+<app-menu></app-menu>
+<br>
+<mat-card class="card">
+  <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
+    <i class="material-icons">file_download</i>
+    EXPORTAR INFORMACIÓN A EXCEL</button>
+    
+    <h1>LISTA RODAMIENTOS</h1>  
+      <div class="lista_vehiculos" id="lista_vehiculos">
+  
+          <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Placa</th>
+                  <th scope="col">No.Buseta</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">No.Ruta</th>
+                  <th scope="col">Lugar</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of listRodamiento">
+                <tr>
+                  <td>{{item.fecha}}</td>
+                  <td>{{placa}}</td>
+                  <td  *ngFor="let item of numero">{{item}}</td>
+                  <td>{{item.hora}}</td>
+                  <td>{{item.numero_rodamiento}}</td>
+                  <td>{{item.lugar}}</td>
+                  
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <br>
+            
+
+            
+      </div>
+
+      <button button mat-fab color="primary" (click)="openDialog()" class="button mt-5">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card>

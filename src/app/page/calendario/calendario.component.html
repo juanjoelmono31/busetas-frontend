@@ -1,0 +1,17 @@
+<app-menu></app-menu>
+<br>
+
+<div>
+    <div class="header-calendar">
+
+    </div>
+
+    <ol>
+        <li *ngFor="let day of week" class="day-name">{{day | slice:0:3}}</li>
+
+        <li 
+            *ngFor="let day of monthSelect;let first = first">
+            <span>{{day?.value}}</span>
+        </li>
+    </ol>
+</div>

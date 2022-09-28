@@ -23,16 +23,25 @@ export class ControlVehiculosComponent implements OnInit {
   Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
   dataUser: any;
   conductor: any
+  Ruta: any;
+  Placa: any;
 
-  constructor(private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, private service_vehiculo: VehiculoService, private fb: FormBuilder, public dialog: MatDialog) { }
-
-  ngOnInit(): void {
-    console.log(this.Fecha);
-  
+  constructor(private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, private service_vehiculo: VehiculoService, private fb: FormBuilder, public dialog: MatDialog) { 
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!);
     this.conductor = (this.dataUser.conductor[0]);
-    
-    
+    console.log("Vehiculo usuario", this.conductor.vehiculo);
+    this.service_vehiculo.getVehiculoID(this.conductor.vehiculo).subscribe((data: any)=>{
+      this.Ruta = data.rodamiento.numero_ruta
+      this.Placa = data.placa
+
+      
+      
+      console.log("SERVICIO DEL ID VEHICULO", data);
+    })
+  }
+
+  ngOnInit(): void {
+    this.crearForm();
     
   //   alertify.prompt("This is a prompt dialog.", "Default value",
   // function(evt: any, value: string ){
@@ -45,12 +54,6 @@ export class ControlVehiculosComponent implements OnInit {
     
   // })
  
- 
-
-
-    this.crearForm();
-
-
     this.service_controlVehiculo.getControlVehiculo().subscribe((data) => {
       console.log("LLEGA INFO DEL SERVICIO", data);
       
@@ -70,9 +73,11 @@ export class ControlVehiculosComponent implements OnInit {
       
     })
   }
+
   borrarDatos() {
     
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(ListCoductoresComponent);
 
@@ -81,34 +86,35 @@ export class ControlVehiculosComponent implements OnInit {
     });
   }
 
-
   crearForm(){
     this.formControlVehiculo = this.fb.group({
 
       fecha: [this.Fecha, Validators.required],
-      ruta: ['', Validators.required],
+      ruta: [this.Ruta, Validators.required],
       numero_vueltas: ['', Validators.required],
-      numero_buseta: ['', Validators.required],
+      //numero_buseta: ['', Validators.required],
       reg_salida: ['', Validators.required],
       reg_llegada: ['', Validators.required],
       gastos: ['', Validators.required],
       neto_total: ['', Validators.required],
-      conductor: ['', Validators.required],
-      placa: ['', Validators.required],
+      conductor: [this.conductor, Validators.required],
+      placa: [this.Placa, Validators.required],
       estado: ['En ruta', Validators.required],
     })
 
   }
 
   crearControlVehiculo() {
-    console.log(this.formControlVehiculo.value);
+    this.formControlVehiculo.value.ruta = this.Ruta
+    this.formControlVehiculo.value.placa = this.Placa
 
+    console.log("------------",this.formControlVehiculo.value);
+    
     this.service_controlVehiculo.postControlVehiculo(this.formControlVehiculo.value).subscribe((data: any)=>{
       console.log("REPSUESTA DE POST", data);
       if(data.message = true){
         alertify.success('Ruta asignada correctamente');
-      }
-      
+      }     
     })
   }
 }

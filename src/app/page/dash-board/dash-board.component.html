@@ -1,4 +1,5 @@
 <app-menu></app-menu>
+<br>
 <mat-card class="card">
     <h1>SOLICITUDES DE RUTA</h1>
 <div class="table-responsive">
@@ -16,6 +17,9 @@
         <th>
             Estado
         </th>
+        <th>
+            Actualizar
+        </th>
        
 
     </thead>
@@ -25,7 +29,7 @@
                 {{item.fecha}}
             </td>
             <td>
-                {{item.conductor}}
+                {{item.conductor.nombre}}
             </td>
             <td>
                 {{item.placa}}
@@ -34,9 +38,12 @@
             <td>
                 {{item.estado}}
             </td>
+            <td >
+                <mat-icon (click)="openDialog()">local_offer</mat-icon>
+            </td>
         </tr>
-        <div style="width: 80%; margin-left: auto; margin-right: auto; text-align: center;" class="alert alert-info" role="alert" *ngIf="listasRutas.length === 0">
-            SIN USUARIOS
+        <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10%;" class="alert alert-info" role="alert" *ngIf="listasRutas.length === 0">
+            SIN USUARIOS EN RUTA
         </div>
     </tbody>
 </table>

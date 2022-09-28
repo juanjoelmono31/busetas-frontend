@@ -28,6 +28,16 @@
                 </mat-form-field>
                 
             </div>
+            <div class="from-group">
+                <mat-form-field appearance="fill">
+                    <mat-label>Buseta</mat-label>
+                    <mat-select name="vehiculo" formControlName="vehiculo">
+                      <mat-option *ngFor="let item of listVehiculos" [value]="item._id">
+                        {{item.placa}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
             <br>
     
             <mat-dialog-actions align="end">

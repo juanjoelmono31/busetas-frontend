@@ -42,7 +42,7 @@
             
             <mat-form-field appearance="fill">
                 <mat-label>Bonificacion</mat-label>
-                <mat-select [(ngModel)]="selectedValue" name="food">
+                <mat-select name="food">
                   <mat-option *ngFor="let food of foods" [value]="food.value">
                     {{food.viewValue}}
                   </mat-option>

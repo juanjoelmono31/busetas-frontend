@@ -15,25 +15,23 @@ export class DashBoardComponent implements OnInit {
 
   listasRutas: any = []
   listasusuarios: any = []
+  
   constructor(private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
+    this.service_conductor.getCoductor().subscribe((data) => {
+      this.listasusuarios = data     
+    })
     this.service_controlVehiculo.getControlVehiculo().subscribe((data) => {
-      console.log("LLEGA INFO DEL SERVICIO", data);
       this.listasRutas = data
-      
     })
 
-    this.service_conductor.getCoductor().subscribe((data) => {
-      console.log("LLEGA INFO DEL SERVICIO", data);
-      this.listasusuarios = data
-      
-    })
   }
+
   openDialog(){
     const dialogRef = this.dialog.open(ControlVehiculosComponent, {
-      height: '600px',
+      height: '654px',
       width: '800px'
     }
       );

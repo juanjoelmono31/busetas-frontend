@@ -1,4 +1,5 @@
 <app-menu></app-menu>
+<br>
 <mat-card class="card">
     <h1>LISTA VEHICULOS</h1>
       <div class="lista_vehiculos" id="lista_vehiculos">
@@ -7,7 +8,6 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Placa</th>
-                  <th scope="col">Propietario</th>
                   <th scope="col">Modelo</th>
                   <th scope="col">Editar</th>
                 </tr>
@@ -15,7 +15,6 @@
               <tbody *ngFor="let item of listVehiculos">
                 <tr>
                   <td>{{item.placa}}</td>
-                  <td>{{item.propietario}}</td>
                   <td>{{item.modelo}}</td>
                   <td >
                       <mat-icon (click)="openDialog()">edit</mat-icon>

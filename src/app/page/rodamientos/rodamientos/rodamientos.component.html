@@ -1,0 +1,67 @@
+
+    
+    <div class="formulario_variables input_especial" >
+        <form [formGroup]="fromRodamiento" (ngSubmit)="createRodamiento()">
+            <!-- <div class="form-group ">
+                <mat-form-field mat-form-field class="example-full-width" >
+                    <mat-label>Ingrese el valor del pasaje</mat-label>
+                    <input matInput type="text" name="" formControlName="valor_pasaje" 
+                        aplaceholder="">
+                </mat-form-field>       
+            </div> -->
+            <br>
+                        
+            <mat-form-field appearance="fill">
+              <mat-label>Seleccione buseta</mat-label>
+              <mat-select name="numero_buseta" formControlName="numero_buseta" >
+                <mat-option *ngFor="let item of listVehiculos" [value]="item._id" [disabled]="item.rodamiento.fecha == this.Fecha">
+                  {{item.placa}} ({{item.numero}})
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <br>
+            <div class="form-group ">
+              <mat-form-field mat-form-field class="example-full-width " >
+                <mat-label >Ingrese la fecha del rodamiento</mat-label>
+                <input matInput type="text" name="fecha" formControlName="fecha" 
+                    placeholder="">
+              </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group ">
+                <mat-form-field mat-form-field class="example-full-width " >
+                    <mat-label >Ingrese la hora </mat-label>
+                    <input matInput type="text" name="hora" formControlName="hora" 
+                    placeholder="">
+                </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group ">
+              <mat-form-field mat-form-field class="example-full-width " >
+                <mat-label >Ingrese el numero de la ruta</mat-label>
+                <input matInput type="text" name="numero_rodamiento" formControlName="numero_rodamiento" 
+                    placeholder="">
+              </mat-form-field>
+                
+            </div>
+            <br>
+            <div class="form-group ">
+                <mat-form-field mat-form-field class="example-full-width " >
+                  <mat-label >Lugar</mat-label>
+                  <input matInput type="text" name="lugar" formControlName="lugar" 
+                      placeholder="">
+                </mat-form-field>
+                  
+              </div>
+            <br>
+            <br>
+            <mat-dialog-actions align="end">
+              <button mat-button color="warn" mat-dialog-close>Cancelar</button>
+              <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial>Guardar</button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+
+

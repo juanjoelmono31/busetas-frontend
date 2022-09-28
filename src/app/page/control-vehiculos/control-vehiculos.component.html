@@ -3,7 +3,7 @@
         <form [formGroup]="formControlVehiculo" (ngSubmit)="crearControlVehiculo()"> 
                
         <div class="form-group">
-                <mat-label class="lable">Fecha: &nbsp;&nbsp;{{Fecha}}</mat-label>
+                <mat-label class="lable">Fecha: {{Fecha}} &nbsp;&nbsp;</mat-label>
         </div>
         <br>
         <div class="form-group">
@@ -11,13 +11,15 @@
         </div>
         <br>
         <div class="form-group">
-            <mat-form-field mat-form-field class="example-full-width" >
-                <mat-label class="lable">Ruta</mat-label>
-                <input matInput type="number" name="ruta" formControlName="ruta" 
-                placeholder="">
-            </mat-form-field>
-            
+                <mat-label class="lable">Ruta: {{Ruta}} &nbsp;&nbsp;</mat-label>
+                <!-- <input matInput name="ruta" formControlName="ruta" class="form-control style" value="{{Ruta}}" [disabled]="true"> -->
         </div>
+        <br>
+        <div class="form-group">
+                <mat-label class="lable">Placa: {{Placa}} &nbsp;&nbsp;</mat-label>
+                <!-- <input matInput name="placa" formControlName="placa" class="form-control style" value="{{Placa}}" [disabled]="true"> -->
+        </div>
+      
         <br>
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width" >
@@ -28,14 +30,6 @@
             
         </div>
         <br>
-        <div class="form-group">
-            <mat-form-field mat-form-field class="example-full-width" >
-                <mat-label class="lable">Numero de buseta</mat-label>
-                <input matInput type="text" name="numero_buseta" formControlName="numero_buseta" class="form-control style"
-                placeholder="">
-            </mat-form-field>
-            
-        </div>
         <br>
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width" >
@@ -74,14 +68,14 @@
 
         <br>
         
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="lable">Seleccione la placa </label>
             <br>
             <br>
             <mat-select class="custom-select" id="inputGroupSelect01" formControlName="placa" >
               <mat-option value="{{item.placa}}" *ngFor="let item of listPlacas" >{{item.placa}}</mat-option>
             </mat-select>
-          </div>
+          </div> -->
         <br>
 
         <!-- <div class="form-group">

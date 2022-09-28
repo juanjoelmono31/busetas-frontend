@@ -28,6 +28,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { LoginComponent } from './page/login/login/login.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ConfigVariablesComponent } from './page/config-variables/config-variables/config-variables.component';
+import { RodamientosComponent } from './page/rodamientos/rodamientos/rodamientos.component';
+import { CalendarioComponent } from './page/calendario/calendario.component';
+import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { ConfigVariablesComponent } from './page/config-variables/config-variabl
     DashBoardComponent,
     ListVehiculosComponent,
     LoginComponent,
-    ConfigVariablesComponent
+    ConfigVariablesComponent,
+    RodamientosComponent,
+    CalendarioComponent,
+    ListRodaminetoComponent
   ],
   imports: [
     BrowserModule,

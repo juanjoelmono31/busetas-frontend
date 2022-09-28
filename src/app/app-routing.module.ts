@@ -8,6 +8,9 @@ import { ListVehiculosComponent } from './page/list-vehiculos/list-vehiculos/lis
 import { LoginComponent } from './page/login/login/login.component';
 import { DashBoardComponent } from './page/dash-board/dash-board.component';
 import { ConfigVariablesComponent } from './page/config-variables/config-variables/config-variables.component';
+import { RodamientosComponent } from './page/rodamientos/rodamientos/rodamientos.component';
+import { CalendarioComponent } from './page/calendario/calendario.component';
+import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.component';
 
 const routes: Routes = [
   
@@ -20,6 +23,10 @@ const routes: Routes = [
   {path: 'lista', component: ListCoductoresComponent},
   {path: 'listavehiculos', component: ListVehiculosComponent},
   {path: 'variables', component: ConfigVariablesComponent},
+  //{path: 'rodamiento', component: RodamientosComponent},
+  {path: 'calendario', component: CalendarioComponent},/*  */
+  {path: 'listarodamiento', component: ListRodaminetoComponent},/*  */
+
 ];
 
 @NgModule({

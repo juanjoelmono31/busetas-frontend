@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConductorService } from 'src/app/services/conductor/conductor.service';
 import * as alertify from 'alertifyjs'
+import { VehiculoService } from 'src/app/services/vehiculo/vehiculo.service';
 
 @Component({
   selector: 'app-conductor',
@@ -12,14 +13,18 @@ export class ConductorComponent implements OnInit {
 
   formConductor!: FormGroup;
   listConductores : any =[];
-  constructor(private service_conductor : ConductorService, private fb: FormBuilder) { }
+  listVehiculos: any = [];
+  constructor(private service_conductor : ConductorService, private fb: FormBuilder, private service_vehiculos: VehiculoService) { }
 
   ngOnInit(): void {
     this.crearForm();
     this.service_conductor.getCoductor().subscribe((data )=>{
       console.log("LLEGA INFO DEL SERVICIO", data);
       this.listConductores = data;
-      
+    })
+    this.service_vehiculos.getVehiculo().subscribe((data) => {
+      console.log("LLEGA INFO DEL SERVICIO", data);
+      this.listVehiculos = data
     })
   }
 
@@ -33,6 +38,7 @@ export class ConductorComponent implements OnInit {
       nombre: ['', Validators.required],
       cedula: ['', Validators.required],
       numero_celular: ['', Validators.required],
+      vehiculo: ['', Validators.required],
     
     });
   }
