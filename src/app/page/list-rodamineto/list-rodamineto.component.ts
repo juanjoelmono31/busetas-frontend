@@ -60,8 +60,8 @@ export class ListRodaminetoComponent implements OnInit {
 
   openDialog(){
     const dialogRef = this.dialog.open(RodamientosComponent, {
-      height: '100%',
-      width: '100px'
+      height: '500px',
+      width: '500px'
     }
       );
 

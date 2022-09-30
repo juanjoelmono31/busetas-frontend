@@ -25,8 +25,8 @@ export class ListCoductoresComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(ConductorComponent, {
-      height: '600px',
-      width: '800px'
+      height: '450px',
+      width: '500px'
     }
       );
 

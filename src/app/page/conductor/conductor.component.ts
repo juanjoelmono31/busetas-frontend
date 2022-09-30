@@ -39,6 +39,7 @@ export class ConductorComponent implements OnInit {
       cedula: ['', Validators.required],
       numero_celular: ['', Validators.required],
       vehiculo: ['', Validators.required],
+      rol: ['', Validators.required],
     
     });
   }

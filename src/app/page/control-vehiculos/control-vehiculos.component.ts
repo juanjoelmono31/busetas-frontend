@@ -29,7 +29,7 @@ export class ControlVehiculosComponent implements OnInit {
   constructor(private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, private service_vehiculo: VehiculoService, private fb: FormBuilder, public dialog: MatDialog) { 
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!);
     this.conductor = (this.dataUser.conductor[0]);
-    console.log("Vehiculo usuario", this.conductor.vehiculo);
+    console.log("Vehiculo usuario", this.conductor);
     this.service_vehiculo.getVehiculoID(this.conductor.vehiculo).subscribe((data: any)=>{
       this.Ruta = data.rodamiento.numero_ruta
       this.Placa = data.placa

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehiculoService } from 'src/app/services/vehiculo/vehiculo.service';
 import * as alertify from 'alertifyjs'
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-vehiculos',
@@ -13,10 +14,16 @@ export class VehiculosComponent implements OnInit {
   formVehiculo!: FormGroup;
   hobiess = new FormArray([new FormControl('')]);
   panelOpenState = false;
-
-  constructor(private service_vehiculo : VehiculoService, private fb: FormBuilder) { }
+  placa: any
+  constructor(private service_vehiculo : VehiculoService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: {infoControl: object}) { }
 
   ngOnInit(): void {
+    console.log(this.data.infoControl);
+    this.placa = this.data.infoControl
+
+    console.log(this.placa.placa);
+    
+    
     this.crearForm();
     this.service_vehiculo.getVehiculo().subscribe((data) => {
       console.log("LLEGA INFO DEL SERVICIO", data);
@@ -34,10 +41,11 @@ export class VehiculosComponent implements OnInit {
       placa: ['', Validators.required],
       propietario: ['', Validators.required],
       modelo: ['', Validators.required],
-      //conductor: ['', Validators.required],
-      poliza: ['', Validators.required],
-      rodamiento: ['', Validators.required],
       numero: ['', Validators.required],
+     
+      //conductor: ['', Validators.required],
+      // poliza: ['', Validators.required],
+      // rodamiento: ['', Validators.required],
       // mantenimientio: this.fb.group({
       //   fecha: [''], 
       //   descripcion: [''],

@@ -31,8 +31,8 @@ export class DashBoardComponent implements OnInit {
 
   openDialog(){
     const dialogRef = this.dialog.open(ControlVehiculosComponent, {
-      height: '654px',
-      width: '800px'
+      height: '600px',
+      width: '500px'
     }
       );
 

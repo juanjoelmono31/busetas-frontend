@@ -22,9 +22,9 @@ export class RodamientosComponent implements OnInit {
   listVehiculos: any = []
 
   foods: Food[] = [
-    {value: '≥', viewValue: '≥ '},
-    {value: '≤', viewValue: '≤'},
- 
+    { value: '≥', viewValue: '≥ ' },
+    { value: '≤', viewValue: '≤' },
+
   ];
 
   today: Date = new Date();
@@ -38,46 +38,49 @@ export class RodamientosComponent implements OnInit {
       console.log("LLEGA INFO DEL SERVICIO", data[0]);
       console.log("FECHA", data[0].rodamiento.fecha);
       console.log("FECHA DE HOY", this.Fecha);
-      
-      
+
+
 
       this.listVehiculos = data
     })
-    
+
   }
 
   crearForm() {
     this.fromRodamiento = this.fb.group({
-      fecha: ['',Validators.required],
-      hora: ['',Validators.required],
-      numero_rodamiento: ['',Validators.required],
-      lugar: ['',Validators.required],
-      numero_buseta: ['',Validators.required]
+      fecha: ['', Validators.required],
+      hora: ['', Validators.required],
+      numero_rodamiento: ['', Validators.required],
+      lugar: ['', Validators.required],
+      numero_buseta: ['', Validators.required]
     })
   }
 
   createRodamiento() {
     console.log(this.fromRodamiento.value);
-    
-  const dataRodamiento = {
-    "rodamiento":{
-      "fecha": this.Fecha,
-      "hora": this.fromRodamiento.value.hora,
-      "lugar": this.fromRodamiento.value.lugar,
-      "numero_ruta": this.fromRodamiento.value.numero_rodamiento,
+
+    const dataRodamiento = {
+      "rodamiento": {
+        "fecha": this.Fecha,
+        "hora": this.fromRodamiento.value.hora,
+        "lugar": this.fromRodamiento.value.lugar,
+        "numero_ruta": this.fromRodamiento.value.numero_rodamiento,
+      }
+
     }
-
-  }
-
+    console.log("-----",dataRodamiento);
+    console.log("*******",this.fromRodamiento.value.numero_buseta);
+    
     this.service_rodamiento.postRodamiento(this.fromRodamiento.value).subscribe((data: any) => {
       console.log("RESPUESTA DE POST", data);
-      if(data.message = true) {
+      if (data.message = true) {
         alertify.success('Rodamiento creado')
-        this.service_vehiculos.putRodamiento(this.fromRodamiento.value.numero_buseta,dataRodamiento).subscribe((response: any) => {
+        this.service_vehiculos.putRodamiento(this.fromRodamiento.value.numero_buseta._id, dataRodamiento).subscribe((response: any) => {
           console.log("Aca llega put rodamiento", response)
+          return
         })
       }
-    } )
+    })
   }
 
 }

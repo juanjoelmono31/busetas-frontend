@@ -22,10 +22,11 @@ export class ListVehiculosComponent implements OnInit {
     })
   }
 
-  openDialog() {
+  openDialog(info: any) {
     const dialogRef = this.dialog.open(VehiculosComponent, {
-      height: '600px',
-      width: '800px'
+      data: { infoControl:  info},
+      height: '550px',
+      width: '500px'
     }
       );
 

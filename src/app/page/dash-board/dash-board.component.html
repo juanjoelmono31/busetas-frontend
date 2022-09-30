@@ -2,54 +2,54 @@
 <br>
 <mat-card class="card">
     <h1>SOLICITUDES DE RUTA</h1>
-<div class="table-responsive">
-<table class="table">
-    <thead class="thead-dark">
-        <th>
-            Fecha
-        </th>
-        <th>
-            Nombre y apellido
-        </th>
-        <th>
-            Placa
-        </th> 
-        <th>
-            Estado
-        </th>
-        <th>
-            Actualizar
-        </th>
-       
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Nombre y apellido
+                </th>
+                <th>
+                    Placa
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Actualizar Control
+                </th>
 
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of listasRutas">
-            <td>
-                {{item.fecha}}
-            </td>
-            <td>
-                {{item.conductor.nombre}}
-            </td>
-            <td>
-                {{item.placa}}
-            </td>
 
-            <td>
-                {{item.estado}}
-            </td>
-            <td >
-                <mat-icon (click)="openDialog()">local_offer</mat-icon>
-            </td>
-        </tr>
-        <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10%;" class="alert alert-info" role="alert" *ngIf="listasRutas.length === 0">
-            SIN USUARIOS EN RUTA
-        </div>
-    </tbody>
-</table>
-</div>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listasRutas">
+                    <td>
+                        {{item.fecha}}
+                    </td>
+                    <td>
+                        {{item.conductor.nombre}}
+                    </td>
+                    <td>
+                        {{item.placa}}
+                    </td>
 
-<button button mat-fab color="primary" (click)="openDialog()" class="button mt-5">
+                    <td>
+                        {{item.estado}}
+                    </td>
+                    <td>
+                        <mat-icon (click)="openDialog()">edit</mat-icon>
+                    </td>
+                </tr>
+                <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10%;" class="alert alert-info" role="alert" *ngIf="listasRutas.length === 0">
+                    SIN USUARIOS EN RUTA
+                </div>
+            </tbody>
+        </table>
+    </div>
+
+    <button button mat-fab color="primary" (click)="openDialog()" class="button mt-5">
     <mat-icon>add</mat-icon>
   </button>
 

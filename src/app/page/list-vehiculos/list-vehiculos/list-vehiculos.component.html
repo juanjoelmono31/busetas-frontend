@@ -2,34 +2,36 @@
 <br>
 <mat-card class="card">
     <h1>LISTA VEHICULOS</h1>
-      <div class="lista_vehiculos" id="lista_vehiculos">
-  
-          <table class="table">
-              <thead class="thead-dark">
+    <div class="lista_vehiculos" id="lista_vehiculos">
+
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Placa</th>
-                  <th scope="col">Modelo</th>
-                  <th scope="col">Editar</th>
+                    <th scope="col">N° Vehiculo</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Propietario</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Editar</th>
                 </tr>
-              </thead>
-              <tbody *ngFor="let item of listVehiculos">
+            </thead>
+            <tbody *ngFor="let item of listVehiculos">
                 <tr>
-                  <td>{{item.placa}}</td>
-                  <td>{{item.modelo}}</td>
-                  <td >
-                      <mat-icon (click)="openDialog()">edit</mat-icon>
-                  </td>
-                  
+                    <td>{{item.numero}}</td>
+                    <td>{{item.placa}}</td>
+                    <td>{{item.propietario}}</td>
+                    <td>{{item.modelo}}</td>
+                    <td>
+                        <mat-icon (click)="openDialog(item)">edit</mat-icon>
+                    </td>
+
                 </tr>
-              </tbody>
-            </table>
-      </div>
-      <button button mat-fab color="primary" (click)="openDialog()" class="button  mt-5" >
+            </tbody>
+        </table>
+    </div>
+    <button button mat-fab color="primary" (click)="openDialog(false)" class="button  mt-5">
         <mat-icon>add</mat-icon>
       </button>
 
 
-  
-    </mat-card>
 
-    
+</mat-card>
