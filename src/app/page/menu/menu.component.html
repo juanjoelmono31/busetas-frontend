@@ -4,13 +4,13 @@
         <a class="navbar-brand" routerLink="/dashboard">Control rutas </a>
         <ul class="navbar-nav mr-auto" *ngIf="this.UserRol === 'admin'">
             <li class="nav-item ">
-                <a class="nav-link" routerLink="/listavehiculos" [routerLinkActive]="'active'">Crear vehiculos </a>
-            </li>
-            <li class="nav-item ">
                 <a class="nav-link" routerLink="/lista" [routerLinkActive]="'active'">Crear conductores </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" routerLink="/listarodamiento" [routerLinkActive]="'active'">Crear rodamientos </a>
+                <a class="nav-link" routerLink="/listavehiculos" [routerLinkActive]="'active'">Crear vehiculos </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" routerLink="/listarodamiento" [routerLinkActive]="'active'">Asignar rodamientos </a>
             </li>
 
             <!-- <li class="nav-item ">
@@ -25,5 +25,10 @@
         </ul>
 
     </div>
-
+    <div style="margin-right: 20px;">
+        <label>{{dataUser.conductor[0].nombre}}</label>
+    </div>
+    <div style="margin-right: 15px;" routerLink="/login">
+        <mat-icon>exit_to_app</mat-icon>
+    </div>
 </nav>

@@ -2,21 +2,21 @@
     <form [formGroup]="formControlVehiculo" (ngSubmit)="crearControlVehiculo()">
         <div class="row">
             <div class="col-md-6 form-group">
-                <mat-label class="lable">Fecha: {{Fecha}} &nbsp;&nbsp;</mat-label>
+                <mat-label class="lable"><b>Fecha:</b>{{Fecha}} &nbsp;&nbsp;</mat-label>
             </div>
             <div class="col-md-6 form-group">
-                <mat-label class="lable">Ruta: {{Ruta}} &nbsp;&nbsp;</mat-label>
+                <mat-label class="lable"><b>Ruta:</b> {{Ruta}} &nbsp;&nbsp;</mat-label>
                 <!-- <input matInput name="ruta" formControlName="ruta" class="form-control style" value="{{Ruta}}" [disabled]="true"> -->
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-5 form-group">
-                <mat-label class="lable">Placa: {{Placa}} &nbsp;&nbsp;</mat-label>
+                <mat-label class="lable"> <b>Placa:</b>{{Placa}} &nbsp;&nbsp;</mat-label>
                 <!-- <input matInput name="placa" formControlName="placa" class="form-control style" value="{{Placa}}" [disabled]="true"> -->
             </div>
             <div class="col-md-7 form-group">
-                <mat-label class="lable">Conductor: &nbsp;&nbsp;{{conductor.nombre}}</mat-label>
+                <mat-label class="lable"><b>Conductor:</b> &nbsp;&nbsp;{{conductor.nombre}}</mat-label>
             </div>
         </div>
         <br>

@@ -14,16 +14,17 @@
                 <th>
                     Placa
                 </th>
+                
                 <th>
                     Estado
                 </th>
                 <th>
-                    Actualizar Control
+                    Actualizar 
                 </th>
 
 
             </thead>
-            <tbody>
+            <tbody *ngIf="rodamientoVehiculo.fecha === Fecha || this.dataUser.conductor[0].rol === 'admin'">
                 <tr *ngFor="let item of listasRutas">
                     <td>
                         {{item.fecha}}
@@ -42,15 +43,19 @@
                         <mat-icon (click)="openDialog()">edit</mat-icon>
                     </td>
                 </tr>
-                <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10%;" class="alert alert-info" role="alert" *ngIf="listasRutas.length === 0">
-                    SIN USUARIOS EN RUTA
-                </div>
             </tbody>
         </table>
     </div>
+    <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-info" role="alert" *ngIf="rodamientoVehiculo.fecha != Fecha">
+        USUARIO SIN RODAMIENTO ASIGNADO
+    </div>
+    <div *ngIf="!estadoBtn" style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-warning" role="alert" (click)="openDialog()">
+        <!-- USUARIO SIN RODAMIENTO ASIGNADO -->
+        INICIAR RUTA
+        <mat-icon>add</mat-icon>
+    </div>
+    <!-- <button button mat-fab color="primary" (click)="openDialog()" class="button mt-5" *ngIf="rodamientoVehiculo.fecha === Fecha">
+  </button> -->
 
-    <button button mat-fab color="primary" (click)="openDialog()" class="button mt-5">
-    <mat-icon>add</mat-icon>
-  </button>
 
 </mat-card>
