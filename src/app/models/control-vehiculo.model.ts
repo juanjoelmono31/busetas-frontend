@@ -5,7 +5,7 @@ export class ControlVehiculoModel {
     numero_buseta!: number;
     reg_salida!: number;
     reg_llegada!: number;
-    gastos!: number;
+    otros!: object;
     neto_total!: number;
     conductor!: string;
     placa!: string;

@@ -1,5 +1,5 @@
 <div class="formulario_ctrlVehiculos  input_especial" style="margin-left: auto; margin-right: auto;">
-    <form [formGroup]="formControlVehiculo" (ngSubmit)="crearControlVehiculo()">
+    <form [formGroup]="formControlVehiculo" >
         <div class="row">
             <div class="col-md-6 form-group">
                 <mat-label class="lable"><b>Fecha:</b>{{Fecha}} &nbsp;&nbsp;</mat-label>
@@ -46,24 +46,53 @@
         <br>
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
-                <mat-label class="lable">Total gastos </mat-label>
-                <input matInput type="text" name="gastos" formControlName="gastos" class="form-control style" placeholder="">
+                <mat-label class="lable">A.C.P.M </mat-label>
+                <input matInput type="number" name="acpm" formControlName="acpm" class="form-control style" placeholder="">
             </mat-form-field>
 
         </div>
         <br>
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
-                <mat-label class="lable">Neto total </mat-label>
-                <input matInput type="text" name="neto_total" formControlName="neto_total" class="form-control style" placeholder="">
+                <mat-label class="lable">Montaje llantas </mat-label>
+                <input matInput type="number" name="montaje_llantas" formControlName="montaje_llantas" class="form-control style" placeholder="">
             </mat-form-field>
+
         </div>
+        <br>
+        <mat-accordion>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Otros gastos
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div formArrayName='otros'>
+                    <div class="row" [formGroupName]="i" *ngFor="let direccion of otros.controls; let i = index">
+                        <mat-form-field mat-form-field class="example-full-width">
+                            <mat-label>Descripcion</mat-label>
+                            <input matInput type="text" formControlName='descripcion'>
+                        </mat-form-field>
+                        <mat-form-field mat-form-field class="example-full-width">
+                            <mat-label>Valor</mat-label>
+                            <input matInput type="number" formControlName='valor'>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <button button mat-fab color="primary" class="button" (click)="agregarOtros()">
+                    <mat-icon>add</mat-icon>
+                  </button>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <br>
+        
 
         <mat-dialog-actions align="end">
             <button mat-button color="warn" mat-dialog-close>Cancelar</button>
-            <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial>Guardar</button>
+            <button mat-button type="submit" color="primary" [mat-dialog-close]="true" (click)="crearControlVehiculo()" cdkFocusInitial>Guardar</button>
         </mat-dialog-actions>
-
     </form>
 
 </div>

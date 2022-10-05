@@ -15,12 +15,30 @@
                     Placa
                 </th>
                 
-                <th>
+                <!-- <th>
                     Estado
+                </th> -->
+                <th>
+                    Reg salida
                 </th>
                 <th>
-                    Actualizar 
+                    Reg llegada
                 </th>
+                <th>
+                    Pasajeros
+                </th>
+                <th>
+                    Bonificacion
+                </th>
+                <th>
+                    Total gastos
+                </th>
+                <th>
+                    Neto total
+                </th>
+                <!-- <th>
+                    Actualizar 
+                </th> -->
 
 
             </thead>
@@ -35,18 +53,38 @@
                     <td>
                         {{item.placa}}
                     </td>
+                    <td>
+                        {{item.reg_salida}}
+                    </td>
+                    <td>
+                        {{item.reg_llegada}}
+                    </td>
 
                     <td>
-                        {{item.estado}}
+
+                       {{item.reg_llegada - item.reg_salida}}
                     </td>
                     <td>
-                        <mat-icon (click)="openDialog()">edit</mat-icon>
+                        {{item.bonificacion}}
                     </td>
+                    <td>
+                        {{item.total_gastos}}
+                    </td>
+                    <td>
+                        {{item.neto_total}}
+                    </td>
+
+                    <!-- <td>
+                        {{item.estado}}
+                    </td> -->
+                    <!-- <td>
+                        <mat-icon (click)="openDialog()">edit</mat-icon>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
     </div>
-    <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-info" role="alert" *ngIf="rodamientoVehiculo.fecha != Fecha">
+    <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-info" role="alert" *ngIf="rodamientoVehiculo.fecha != Fecha && this.dataUser.conductor[0].rol != 'admin'">
         USUARIO SIN RODAMIENTO ASIGNADO
     </div>
     <div *ngIf="!estadoBtn" style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-warning" role="alert" (click)="openDialog()">

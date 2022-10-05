@@ -46,6 +46,9 @@ export class DashBoardComponent implements OnInit {
     this.service_controlVehiculo.getControlVehiculo().subscribe((data) => {
       this.listasRutas = data
 
+      console.log("Rutas", this.listasRutas);
+      
+
       if(this.listasRutas.estado =! 'En ruta'){
         this.estadoBtn = true
       }else{
