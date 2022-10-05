@@ -31,6 +31,7 @@ export class ControlVehiculosComponent implements OnInit {
   basico = 20000;
   pasajeros: any;
   valores = 0;
+  sumaGastos = 0;
 
   constructor(private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, private service_vehiculo: VehiculoService, private fb: FormBuilder, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: {infoControl: object}) { 
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!);
@@ -120,16 +121,20 @@ export class ControlVehiculosComponent implements OnInit {
       const element = this.formControlVehiculo.value.otros[index].valor;
       this.valores = element + this.valores;
     }
+   
+    this.sumaGastos = (this.basico + this.valores + this.formControlVehiculo.value.acpm + this.formControlVehiculo.value.montaje_llantas + this.bonificacion)
+    this.formControlVehiculo.value.total_gastos = this.sumaGastos
     
-    this.formControlVehiculo.value.total_gastos = (this.basico + this.valores + this.formControlVehiculo.value.acpm + this.formControlVehiculo.value.montaje_llantas + this.bonificacion)
+    console.log('suma gastos', this.sumaGastos);
+    
 
     const Producido = this.pasajeros * this.valorPasaje
     this.formControlVehiculo.value.neto_total = (Producido - this.formControlVehiculo.value.total_gastos)
     
     // console.log("Producido diario", Producido);
     // console.log("Otros", this.formControlVehiculo.value.otros);    
-    // console.log("Neto total", this.formControlVehiculo.value.neto_total);
-    // console.log("------------",this.formControlVehiculo.value);    
+    console.log("Neto total", this.formControlVehiculo.value.neto_total);
+    console.log("------------",this.formControlVehiculo.value.total_gastos);    
 
     this.service_controlVehiculo.postControlVehiculo(this.formControlVehiculo.value).subscribe((data: any)=>{
       console.log("REPSUESTA DE POST", data);
@@ -152,13 +157,13 @@ export class ControlVehiculosComponent implements OnInit {
   CalculoBonificacion() {
     this.pasajeros = this.formControlVehiculo.value.reg_llegada - this.formControlVehiculo.value.reg_salida;
        
-    if (this.pasajeros >= 200 && this.pasajeros <= 250) {
+    if (this.pasajeros >= 200 && this.pasajeros < 250) {
       return (this.bonificacion = 10000)
-    } else if (this.pasajeros >= 251 && this.pasajeros <= 300){
+    } else if (this.pasajeros >= 250 && this.pasajeros < 300){
       return (this.bonificacion = 20000)
-    }else if(this.pasajeros >= 301 && this.pasajeros <= 350) {
+    }else if(this.pasajeros >= 300 && this.pasajeros < 350) {
       return (this.bonificacion = 30000)
-    }else if(this.pasajeros >= 351 && this.pasajeros <= 400) {
+    }else if(this.pasajeros >= 350 && this.pasajeros < 400) {
       return (this.bonificacion = 40000)
     } else {
       return this.bonificacion = 0
