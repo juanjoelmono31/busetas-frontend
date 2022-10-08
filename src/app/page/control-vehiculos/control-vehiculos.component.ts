@@ -101,7 +101,8 @@ export class ControlVehiculosComponent implements OnInit {
       montaje_llantas: ['', Validators.required],
       total_gastos: ['', Validators.required],
       bonificacion: ['', Validators.required],
-      otros: this.fb.array([])
+      otros: this.fb.array([]),
+      basico: ['', Validators.required]
     })
 
   }
@@ -122,15 +123,21 @@ export class ControlVehiculosComponent implements OnInit {
       this.valores = element + this.valores;
     }
    
+    
     this.sumaGastos = (this.basico + this.valores + this.formControlVehiculo.value.acpm + this.formControlVehiculo.value.montaje_llantas + this.bonificacion)
+    
     this.formControlVehiculo.value.total_gastos = this.sumaGastos
     
+
     console.log('suma gastos', this.sumaGastos);
     
 
     const Producido = this.pasajeros * this.valorPasaje
     this.formControlVehiculo.value.neto_total = (Producido - this.formControlVehiculo.value.total_gastos)
-    
+    if (this.formControlVehiculo.value.neto_total <= 0 ) {
+      this.formControlVehiculo.value.neto_total = 0
+      
+    }
     // console.log("Producido diario", Producido);
     // console.log("Otros", this.formControlVehiculo.value.otros);    
     console.log("Neto total", this.formControlVehiculo.value.neto_total);

@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { hide } from '@popperjs/core';
+import { DOCUMENT } from '@angular/common';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { ConductorService } from 'src/app/services/conductor/conductor.service';
 import { ControlVehiculoService } from 'src/app/services/control-vehiculo/control-vehiculo.service';
 import { RodamientoService } from 'src/app/services/rodamiento/rodamiento.service';
@@ -20,6 +22,9 @@ export class DashBoardComponent implements OnInit {
   listasRutas: any = []
   listasusuarios: any = []
   rodamientoVehiculo: any;
+  basico = 20000
+  valorPasaje = 2080;
+  valores = 0
 
   today: Date = new Date();
   pipe = new DatePipe('en-US');
@@ -27,7 +32,7 @@ export class DashBoardComponent implements OnInit {
 
   estadoBtn : boolean = false;
   
-  constructor(private service_vehiculos: VehiculoService, private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, public dialog: MatDialog, private service_rodamiento: RodamientoService) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private service_vehiculos: VehiculoService, private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, public dialog: MatDialog, private service_rodamiento: RodamientoService, private exportService: ExporterService) { }
 
   ngOnInit(): void {
    this.Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
@@ -47,6 +52,25 @@ export class DashBoardComponent implements OnInit {
       this.listasRutas = data
 
       console.log("Rutas", this.listasRutas);
+
+      
+      for (let index = 0; index < this.listasRutas.length; index++) {
+        if (this.listasRutas[index].placa === this.listasRutas[index].placa) {
+          
+          const element = this.listasRutas[index].neto_total;
+          const sumaNetos = element + element
+          console.log('Totales netos', sumaNetos);
+          
+        }
+        
+      }
+
+      for (let index = 0; index < this.listasRutas.length; index++) {
+        const element = this.listasRutas[index].otros[index];
+        this.valores = element + this.valores;
+        console.log('aca esta el element' ,element);
+        
+      }
       
 
       if(this.listasRutas.estado =! 'En ruta'){
@@ -73,6 +97,13 @@ export class DashBoardComponent implements OnInit {
 
   }
 
+  
+  exportAsXLSX() {
+    this.listasRutas.otros = this.valores
+    this.exportService.exportToExcel(this.listasRutas, 'info_rodamientos');
+    console.log('**********************', this.valores);
+    
+  }
   openDialog(){
     const dialogRef = this.dialog.open(ControlVehiculosComponent, {
       height: '600px',

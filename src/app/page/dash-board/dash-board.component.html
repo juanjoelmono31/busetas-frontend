@@ -1,19 +1,26 @@
 <app-menu></app-menu>
 <br>
 <mat-card class="card">
-    <h1>SOLICITUDES DE RUTA</h1>
+    <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
+        <i class="material-icons">file_download</i>
+        EXPORTAR INFORMACIÓN A EXCEL</button>
+
+    <h1>CONTROL DE RUTAS</h1>
     <div class="table-responsive">
         <table class="table">
             <thead class="thead-dark">
                 <th>
                     Fecha
                 </th>
+                &nbsp;&nbsp;
                 <th>
                     Nombre y apellido
                 </th>
+                &nbsp;&nbsp;
                 <th>
                     Placa
                 </th>
+                &nbsp;&nbsp;
                 
                 <!-- <th>
                     Estado
@@ -21,18 +28,39 @@
                 <th>
                     Reg salida
                 </th>
+                &nbsp;&nbsp;
                 <th>
                     Reg llegada
                 </th>
+                &nbsp;&nbsp;
                 <th>
                     Pasajeros
                 </th>
+                &nbsp;&nbsp;
+                <th>
+                    Producido
+                </th>
+                &nbsp;&nbsp;
+                <th>
+                    A.C.P.M
+                </th>
+                &nbsp;&nbsp;
+                <th>
+                    Basico
+                </th>
+                &nbsp;&nbsp;
+                <th>
+                    Gastos varios
+                </th>
+                &nbsp;&nbsp;
                 <th>
                     Bonificacion
                 </th>
+                &nbsp;&nbsp;
                 <th>
                     Total gastos
                 </th>
+                &nbsp;&nbsp;
                 <th>
                     Neto total
                 </th>
@@ -47,32 +75,55 @@
                     <td>
                         {{item.fecha}}
                     </td>
+                    &nbsp;&nbsp;
                     <td>
                         {{item.conductor.nombre}}
                     </td>
+                    &nbsp;&nbsp;
                     <td>
                         {{item.placa}} 
                     </td>
+                    &nbsp;&nbsp;
+
                     <td>
                         {{item.reg_salida}}
                     </td>
+                    &nbsp;&nbsp;
                     <td>
                         {{item.reg_llegada}}
                     </td>
-
+                    &nbsp;&nbsp;
                     <td>
-
                        {{item.reg_llegada - item.reg_salida}}
                     </td>
+                    &nbsp;&nbsp;
 
                     <td>
-                        {{item.bonificacion}}
-                    </td>
+                        {{(item.reg_llegada - item.reg_salida) * (valorPasaje) | currency}} 
+                     </td>
+                     &nbsp;&nbsp;
                     <td>
-                        {{item.total_gastos}}
+                        {{item.acpm | currency}}
                     </td>
+                    &nbsp;&nbsp;
                     <td>
-                        {{item.neto_total}}
+                        {{basico | currency}}
+                    </td>
+                    &nbsp;&nbsp;
+                    <td>
+                        {{item.valores | currency}}
+                    </td>
+                    &nbsp;&nbsp;
+                    <td>
+                        {{item.bonificacion | currency}}
+                    </td>
+                    &nbsp;&nbsp;
+                    <td>
+                        {{item.total_gastos | currency}}
+                    </td>
+                    &nbsp;&nbsp;
+                    <td>
+                        {{item.neto_total | currency}}
                     </td>
 
                     <!-- <td>
