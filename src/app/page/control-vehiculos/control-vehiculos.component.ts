@@ -32,6 +32,7 @@ export class ControlVehiculosComponent implements OnInit {
   pasajeros: any;
   valores = 0;
   sumaGastos = 0;
+  netoVehiculo = 0
 
   constructor(private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, private service_vehiculo: VehiculoService, private fb: FormBuilder, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: {infoControl: object}) { 
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!);
@@ -40,23 +41,13 @@ export class ControlVehiculosComponent implements OnInit {
     this.service_vehiculo.getVehiculoID(this.conductor.vehiculo).subscribe((data: any)=>{
       this.Ruta = data.rodamiento.numero_ruta
       this.Placa = data.placa     
+      this.netoVehiculo = data.netoTotal
       console.log("SERVICIO DEL ID VEHICULO", data);
     })
   }
 
   ngOnInit(): void {
     this.crearForm();
-    
-  //   alertify.prompt("This is a prompt dialog.", "Default value",
-  // function(evt: any, value: string ){
-  //   alertify.success('Ok: ' + value);
-  //   console.log("ACA", value);
-    
-  // },
-  // function(){
-  //   alertify.error('Cancel');
-    
-  // })
  
     this.service_controlVehiculo.getControlVehiculo().subscribe((data) => {
       console.log("LLEGA INFO DEL SERVICIO", data);     
@@ -122,41 +113,34 @@ export class ControlVehiculosComponent implements OnInit {
     for (let index = 0; index < this.formControlVehiculo.value.otros.length; index++) {
       const element = this.formControlVehiculo.value.otros[index].valor;
       this.valores = element + this.valores;
-
-      console.log();
-      
-
       
     }
    
-    
-    this.sumaGastos = (this.basico + this.valores + this.formControlVehiculo.value.acpm + this.formControlVehiculo.value.montaje_llantas + this.bonificacion)
-    
-    this.formControlVehiculo.value.total_gastos = this.sumaGastos
-    
-
-    console.log('suma gastos', this.sumaGastos);
-    console.log('Valores', this.valores);
-    this.formControlVehiculo.value.otros_gastos = this.valores
-    
-    
-
     const Producido = this.pasajeros * this.valorPasaje
-    
-    this.formControlVehiculo.value.neto_total = (Producido - this.formControlVehiculo.value.total_gastos)
+   
+    this.sumaGastos = (this.basico + this.valores + this.formControlVehiculo.value.acpm + this.formControlVehiculo.value.montaje_llantas + this.bonificacion)
+     
+    this.formControlVehiculo.value.total_gastos = this.sumaGastos
+    this.formControlVehiculo.value.neto_total = (Number(Producido) - Number(this.formControlVehiculo.value.total_gastos))
+    this.formControlVehiculo.value.otros_gastos = this.valores
+
     if (this.formControlVehiculo.value.neto_total <= 0 ) {
       this.formControlVehiculo.value.neto_total = 0
       
     }
-    // console.log("Producido diario", Producido);
-    // console.log("Otros", this.formControlVehiculo.value.otros);    
     console.log("Neto total", this.formControlVehiculo.value.neto_total);
-    console.log("------------",this.formControlVehiculo.value.total_gastos);    
-
+    
     this.service_controlVehiculo.postControlVehiculo(this.formControlVehiculo.value).subscribe((data: any)=>{
       console.log("REPSUESTA DE POST", data);
       if(data.message = true){
         alertify.success('Control creado correctamente');
+
+        const SumaNetosTotales = this.formControlVehiculo.value.neto_total + this.netoVehiculo;
+        debugger
+        this.service_controlVehiculo.updateNetoTotalVehiculo(this.conductor.vehiculo, SumaNetosTotales).subscribe((data)=>{
+          console.log('RESPUETSA UPDATE NETOS ', data);
+          
+        })
         //alertify.success('Esta es la Bonificacion de esta ruta' + this.bonificacion);
       }     
     })

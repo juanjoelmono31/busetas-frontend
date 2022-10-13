@@ -1,152 +1,175 @@
 <app-menu></app-menu>
 <br>
-<mat-card class="card">
-    <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
-        <i class="material-icons">file_download</i>
-        EXPORTAR INFORMACIÓN A EXCEL</button>
-
-    <h1>CONTROL DE RUTAS</h1>
-    <div class="table-responsive">
-        <table class="table">
-            <thead class="thead-dark">
-                <th>
-                    Fecha
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Nombre y apellido
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Placa
-                </th>
-                &nbsp;&nbsp;
-                
-                <!-- <th>
-                    Estado
-                </th> -->
-                <th>
-                    Reg salida
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Reg llegada
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Pasajeros
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Producido
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    A.C.P.M
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Basico
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Gastos varios
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Bonificacion
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Total gastos
-                </th>
-                &nbsp;&nbsp;
-                <th>
-                    Neto total
-                </th>
-                <!-- <th>
-                    Actualizar 
-                </th> -->
 
 
-            </thead>
-            <tbody *ngIf="rodamientoVehiculo.fecha === Fecha || this.dataUser.conductor[0].rol === 'admin'">
-                <tr *ngFor="let item of listasRutas">
-                    <td>
-                        {{item.fecha}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                        {{item.conductor.nombre}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                        {{item.placa}} 
-                    </td>
-                    &nbsp;&nbsp;
+<mat-tab-group mat-align-tabs="end">
+    <mat-tab label="Lista Control Rutas">
+        <mat-card class="card">
+            <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
+                <i class="material-icons">file_download</i>
+                EXPORTAR INFORMACIÓN A EXCEL</button>
 
-                    <td>
-                        {{item.reg_salida}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                        {{item.reg_llegada}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                       {{item.reg_llegada - item.reg_salida}}
-                    </td>
-                    &nbsp;&nbsp;
+            <h1>CONTROL DE RUTAS</h1>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <th>
+                            Fecha
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Nombre y apellido
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Placa
+                        </th>
+                        &nbsp;&nbsp;
 
-                    <td>
-                        {{(item.reg_llegada - item.reg_salida) * (valorPasaje) | currency}} 
-                     </td>
-                     &nbsp;&nbsp;
-                    <td>
-                        {{item.acpm | currency}}
-                    </td>
-                    &nbsp;&nbsp;
-                    
-                    <td>
-                        {{basico | currency}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                        {{item.otros_gastos}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                        {{item.bonificacion | currency}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                        {{item.total_gastos | currency}}
-                    </td>
-                    &nbsp;&nbsp;
-                    <td>
-                        {{item.neto_total | currency}}
-                    </td>
-
-                    <!-- <td>
-                        {{item.estado}}
-                    </td> -->
-                    <!-- <td>
-                        <mat-icon (click)="openDialog()">edit</mat-icon>
-                    </td> -->
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-info" role="alert" *ngIf="rodamientoVehiculo.fecha != Fecha && this.dataUser.conductor[0].rol != 'admin'">
-        USUARIO SIN RODAMIENTO ASIGNADO
-    </div>
-    <div *ngIf="!estadoBtn" style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-warning" role="alert" (click)="openDialog()">
-        <!-- USUARIO SIN RODAMIENTO ASIGNADO -->
-        INICIAR RUTA
-        <mat-icon>add</mat-icon>
-    </div>
-    <!-- <button button mat-fab color="primary" (click)="openDialog()" class="button mt-5" *ngIf="rodamientoVehiculo.fecha === Fecha">
-  </button> -->
+                        <!-- <th>
+                            Estado
+                        </th> -->
+                        <th>
+                            Reg salida
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Reg llegada
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Pasajeros
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Producido
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            A.C.P.M
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Basico
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Gastos varios
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Bonificacion
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Total gastos
+                        </th>
+                        &nbsp;&nbsp;
+                        <th>
+                            Total diario
+                        </th>
+                        <!-- <th>
+                            Actualizar 
+                        </th> -->
 
 
-</mat-card>
+                    </thead>
+                    <tbody *ngIf="rodamientoVehiculo.fecha === Fecha || this.dataUser.conductor[0].rol === 'admin'">
+                        <tr *ngFor="let item of listasRutas">
+                            <td>
+                                {{item.fecha}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.conductor.nombre}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.placa}}
+                            </td>
+                            &nbsp;&nbsp;
+
+                            <td>
+                                {{item.reg_salida}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.reg_llegada}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.reg_llegada - item.reg_salida}}
+                            </td>
+                            &nbsp;&nbsp;
+
+                            <td>
+                                {{(item.reg_llegada - item.reg_salida) * (valorPasaje) | currency}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.acpm | currency}}
+                            </td>
+                            &nbsp;&nbsp;
+
+                            <td>
+                                {{basico | currency}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.otros_gastos}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.bonificacion | currency}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.total_gastos | currency}}
+                            </td>
+                            &nbsp;&nbsp;
+                            <td>
+                                {{item.neto_total | currency}}
+                            </td>
+
+                            <!-- <td>
+                                {{item.estado}}
+                            </td> -->
+                            <!-- <td>
+                                <mat-icon (click)="openDialog()">edit</mat-icon>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-info" role="alert" *ngIf="rodamientoVehiculo.fecha != Fecha && this.dataUser.conductor[0].rol != 'admin'">
+                USUARIO SIN RODAMIENTO ASIGNADO
+            </div>
+            <div *ngIf="!estadoBtn" style="width: 60%; margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px;" class="alert alert-warning" role="alert" (click)="openDialog()">
+                <!-- USUARIO SIN RODAMIENTO ASIGNADO -->
+                INICIAR RUTA
+                <mat-icon>add</mat-icon>
+            </div>
+            <!-- <button button mat-fab color="primary" (click)="openDialog()" class="button mt-5" *ngIf="rodamientoVehiculo.fecha === Fecha">
+          </button> -->
+
+
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Netos Vehiculos" style="height: 100%">
+        <div style="width: 50%; padding-top: 20px; margin-left: auto; margin-right: auto;">
+            <span style="font-size: 25px; ">LISTADO DE VEHICULOS CON PRODUCIDO TOTAL TRABAJADO</span>
+        </div>
+        <div class="row">
+            <div class="col-md-3" *ngFor="let item of listaVehiculos">
+                <br>
+                <mat-card class="cardNetos">
+                    <mat-card-title>PLACA {{item.placa}}</mat-card-title>
+                    <mat-card-subtitle>Numero Vehiculo {{item.numero}}</mat-card-subtitle>
+                    <mat-card-content>
+                        <p>El valor priducido de este vehiculo hasta la fecha es de : <span style="font-size: 20px; font-weight: 700;">{{item.netoTotal | currency}}</span></p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

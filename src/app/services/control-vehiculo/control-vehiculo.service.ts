@@ -17,6 +17,16 @@ export class ControlVehiculoService {
     console.log("LLEGA INFO DEL FORMULARIO", controlVehiculoRegister);
 
     return this.http.post('http://localhost:3000/control', controlVehiculoRegister)
-    
+
+  }
+
+  updateNetoTotalVehiculo(idVehiculo: string, netoTotal: number) {
+    console.log("LLEGA netoTotal a actualizar", netoTotal);
+    const sumaNetos = {
+      'netoTotal': netoTotal
+    }
+
+    return this.http.put('http://localhost:3000/vehiculo/netos/' + idVehiculo, sumaNetos)
+    // return this.http.post('http://localhost:3000/control', controlVehiculoRegister)
   }
 }
