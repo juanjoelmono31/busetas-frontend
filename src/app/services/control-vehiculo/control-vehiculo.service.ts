@@ -13,6 +13,10 @@ export class ControlVehiculoService {
     return this.http.get('http://localhost:3000/control');
   }
 
+  getCtrlPlaca (placa: string) {
+    return this.http.get(`http://localhost:3000/control/placa/${placa}`)
+  }
+
   postControlVehiculo(controlVehiculoRegister: ControlVehiculoModel) {
     console.log("LLEGA INFO DEL FORMULARIO", controlVehiculoRegister);
 

@@ -89,7 +89,7 @@ export class ControlVehiculosComponent implements OnInit {
       placa: [this.Placa, Validators.required],
       estado: ['En ruta', Validators.required],
       acpm: ['', Validators.required],
-      montaje_llantas: ['', Validators.required],
+      //montaje_llantas: ['', Validators.required],
       total_gastos: ['', Validators.required],
       bonificacion: ['', Validators.required],
       otros: this.fb.array([]),
@@ -118,7 +118,7 @@ export class ControlVehiculosComponent implements OnInit {
    
     const Producido = this.pasajeros * this.valorPasaje
    
-    this.sumaGastos = (this.basico + this.valores + this.formControlVehiculo.value.acpm + this.formControlVehiculo.value.montaje_llantas + this.bonificacion)
+    this.sumaGastos = (this.basico + this.valores + this.formControlVehiculo.value.acpm + this.bonificacion)
      
     this.formControlVehiculo.value.total_gastos = this.sumaGastos
     this.formControlVehiculo.value.neto_total = (Number(Producido) - Number(this.formControlVehiculo.value.total_gastos))

@@ -31,6 +31,8 @@ import { ConfigVariablesComponent } from './page/config-variables/config-variabl
 import { RodamientosComponent } from './page/rodamientos/rodamientos/rodamientos.component';
 import { CalendarioComponent } from './page/calendario/calendario.component';
 import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.component';
+import { InfoVehiculosComponent } from './page/info-vehiculos/info-vehiculos/info-vehiculos.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.
     ConfigVariablesComponent,
     RodamientosComponent,
     CalendarioComponent,
-    ListRodaminetoComponent
+    ListRodaminetoComponent,
+    InfoVehiculosComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.
     MatCardModule,
     MatSelectModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

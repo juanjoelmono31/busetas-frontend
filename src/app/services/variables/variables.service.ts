@@ -10,10 +10,10 @@ export class VariablesService {
   constructor(private http: HttpClient) { }
 
   getVariables() {
-    return this.http.get('http://localhost:5000/variables');
+    return this.http.get('http://localhost:3000/variables');
   }
 
   postVariables(variableRegister:ConfigVariablesModel ) {
-    return this.http.post('http://localhost:5000/variables',ConfigVariablesModel )
+    return this.http.post('http://localhost:3000/variables',ConfigVariablesModel )
   }
 }

@@ -10,6 +10,7 @@ import { RodamientoService } from 'src/app/services/rodamiento/rodamiento.servic
 import { VehiculoService } from 'src/app/services/vehiculo/vehiculo.service';
 import { ConductorComponent } from '../conductor/conductor.component';
 import { ControlVehiculosComponent } from '../control-vehiculos/control-vehiculos.component';
+import { InfoVehiculosComponent } from '../info-vehiculos/info-vehiculos/info-vehiculos.component';
 
 @Component({
   selector: 'app-dash-board',
@@ -20,6 +21,7 @@ export class DashBoardComponent implements OnInit {
   dataUser: any;
   infoRodamiento: any
   listasRutas: any = []
+  listaRutasFecha: any = []
   listasusuarios: any = []
   listaVehiculos: any = []
   rodamientoVehiculo: any;
@@ -37,6 +39,8 @@ export class DashBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
+    console.log('Esta es la fecha actual', this.Fecha);
+    
 
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!)
     console.log('ACAAAAAAAA ESTA EL ID DEL VEHICULO', this.dataUser.conductor[0].vehiculo)
@@ -56,17 +60,24 @@ export class DashBoardComponent implements OnInit {
 
       console.log("LISTADO DE RUTAS", this.listasRutas);
 
-      debugger
+      
       for (let index = 0; index < this.listasRutas.length; index++) {
         if (this.listasRutas[index].placa === this.listasRutas[index].placa) {
 
+          if(this.listasRutas[index].fecha === this.Fecha){
+            this.listaRutasFecha.push(this.listasRutas[index])
+          }
+          
+          
+          
           const element = this.listasRutas[index].neto_total;
           // const sumaNetos = element + element
           // console.log('Totales netos', sumaNetos);
-
+          
         }
-
+        
       }
+      console.log("LISTA CON FECHA DE HOY",this.listaRutasFecha );
 
       for (let index = 0; index < this.listasRutas.length; index++) {
         const element = this.listasRutas[index].otros[index];
@@ -116,6 +127,15 @@ export class DashBoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openInfoVehiculo(placa:string) {
+    console.log('esta es la placa', placa);
+    const dialogRef = this.dialog.open(InfoVehiculosComponent, {
+      
+      width: '1500px',
+      data: { placa }
     });
   }
 }
