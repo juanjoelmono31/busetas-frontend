@@ -136,7 +136,7 @@ export class ControlVehiculosComponent implements OnInit {
         alertify.success('Control creado correctamente');
 
         const SumaNetosTotales = this.formControlVehiculo.value.neto_total + this.netoVehiculo;
-        debugger
+        
         this.service_controlVehiculo.updateNetoTotalVehiculo(this.conductor.vehiculo, SumaNetosTotales).subscribe((data)=>{
           console.log('RESPUETSA UPDATE NETOS ', data);
           

@@ -11,6 +11,7 @@ import { VehiculoService } from 'src/app/services/vehiculo/vehiculo.service';
 import { ConductorComponent } from '../conductor/conductor.component';
 import { ControlVehiculosComponent } from '../control-vehiculos/control-vehiculos.component';
 import { InfoVehiculosComponent } from '../info-vehiculos/info-vehiculos/info-vehiculos.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dash-board',
@@ -19,6 +20,7 @@ import { InfoVehiculosComponent } from '../info-vehiculos/info-vehiculos/info-ve
 })
 export class DashBoardComponent implements OnInit {
   dataUser: any;
+  UserRol: string = "";
   infoRodamiento: any
   listasRutas: any = []
   listaRutasFecha: any = []
@@ -35,15 +37,17 @@ export class DashBoardComponent implements OnInit {
 
   estadoBtn: boolean = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private service_vehiculos: VehiculoService, private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, public dialog: MatDialog, private service_rodamiento: RodamientoService, private exportService: ExporterService) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private service_vehiculos: VehiculoService, private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, public dialog: MatDialog, private service_rodamiento: RodamientoService, private exportService: ExporterService, public router: Router) { }
 
   ngOnInit(): void {
+
     this.Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
     console.log('Esta es la fecha actual', this.Fecha);
     
 
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!)
-    console.log('ACAAAAAAAA ESTA EL ID DEL VEHICULO', this.dataUser.conductor[0].vehiculo)
+    this.UserRol = this.dataUser.conductor[0].rol
+    console.log('ACAAAAAAAA ESTA EL ID DEL VEHICULO', this.dataUser.conductor[0].rol)
 
     this.service_vehiculos.getVehiculoID(this.dataUser.conductor[0].vehiculo).subscribe((data: any) => {
       console.log("REPSUESTA VEHICULO", data);
@@ -93,23 +97,9 @@ export class DashBoardComponent implements OnInit {
         this.estadoBtn = false
       }
     })
-
-    // this.service_rodamiento.getRodamientoId('633776e585927bc79c20f151').subscribe((data)=> {
-    //   console.log('Info del rodamiento',data);
-    //   this.infoRodamiento = data
-    //   console.log('ID VEHICULO de rodamiento ',this.infoRodamiento.numero_buseta._id);
-
-
-    // })
-
-
-
-
-
-
-
-
   }
+
+  
 
 
   exportAsXLSX() {
@@ -127,6 +117,7 @@ export class DashBoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.router.navigateByUrl('/RefrshComponent', {skipLocationChange: true}).then(()=> this.router.navigate(["/dashboard"]));
     });
   }
 

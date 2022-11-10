@@ -1,7 +1,7 @@
 <mat-dialog-content class="mat-typography">
   <h3>Filtro</h3>
   <div>
-    <form>
+    <form [formGroup]="FiltroFecha" (ngSubmit)="CapturaFecha()">
       <input type="date" min="2022-10-1" max="2022-11-7" />
       <input type="date" />
     </form>
