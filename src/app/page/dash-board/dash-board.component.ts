@@ -30,7 +30,7 @@ export class DashBoardComponent implements OnInit {
   basico = 20000
   valorPasaje = 2080;
   valores = 0
-
+  sumaNetosDiarios = 0;
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   Fecha: any;
@@ -56,6 +56,8 @@ export class DashBoardComponent implements OnInit {
 
     this.service_vehiculos.getVehiculo().subscribe((data) => {
       this.listaVehiculos = data
+      console.log("VEHICULOS", this.listaVehiculos);
+      
     })
 
 
@@ -82,6 +84,11 @@ export class DashBoardComponent implements OnInit {
         
       }
       console.log("LISTA CON FECHA DE HOY",this.listaRutasFecha );
+
+      for (let index = 0; index < this.listaRutasFecha.length; index++) {        
+        const valorNetoTotal = this.listaRutasFecha[index].neto_total;
+        this.sumaNetosDiarios = valorNetoTotal + this.sumaNetosDiarios;
+      }
 
       for (let index = 0; index < this.listasRutas.length; index++) {
         const element = this.listasRutas[index].otros[index];

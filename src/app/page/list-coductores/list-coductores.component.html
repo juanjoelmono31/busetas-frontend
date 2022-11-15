@@ -1,32 +1,39 @@
 <app-menu></app-menu>
 <br>
 <mat-card class="card">
-  <h1>LISTA CONDUCTORES</h1>
-    <div class="lista-conductor" id="lista_conductor">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>LISTA CONDUCTORES</h1>
+        </div>
+        <div class="col-md-6">
+            <button button mat-fab color="primary" (click)="openDialog()" class="button ">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
 
+    <div class="lista-conductor" id="lista_conductor">
         <table class="table">
             <thead class="thead-dark">
-              <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">N° Buseta</th>
-                <th scope="col">Celular</th>
-                <th scope="col">Rol</th>
-              </tr>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">N° Buseta</th>
+                    <!-- <th scope="col">Celular</th> -->
+                    <th scope="col">Rol</th>
+                </tr>
             </thead>
             <tbody *ngFor="let item of listConductores">
-              <tr>
-                <td>{{item.nombre}}</td>
-                <td>{{item.cedula}}</td>
-                <td>{{item.numero_celular}}</td>
-                <td>{{item.rol}}</td>
-              </tr>
+                <tr>
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.cedula}}</td>
+                    <!-- <td>{{item.numero_celular}}</td> -->
+                    <td>{{item.rol}}</td>
+                </tr>
             </tbody>
-          </table>
+        </table>
     </div>
-    
-    <button button mat-fab color="primary" (click)="openDialog()" class="button  mt-5" >
-      <mat-icon>add</mat-icon>
-    </button>
 
 
-  </mat-card>
+
+
+</mat-card>

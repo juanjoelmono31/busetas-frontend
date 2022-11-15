@@ -71,7 +71,7 @@ export class ListRodaminetoComponent implements OnInit {
   }
 
   exportAsXLSX() {
-    this.exportService.exportToExcel(this.listRodamiento, 'info_rodamientos');
+    this.exportService.exportToExcel(this.listaRodamientosFecha, 'info_rodamientos');
   }
 
   openDialog(){

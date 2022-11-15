@@ -1,7 +1,16 @@
 <app-menu></app-menu>
 <br>
 <mat-card class="card">
-    <h1>LISTA VEHICULOS</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>LISTA VEHICULOS</h1>
+        </div>
+        <div class="col-md-6">
+            <button button mat-fab color="primary" (click)="openDialog(false)" class="button ">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
     <div class="lista_vehiculos" id="lista_vehiculos">
 
         <table class="table">
@@ -26,10 +35,4 @@
             </tbody>
         </table>
     </div>
-    <button button mat-fab color="primary" (click)="openDialog(false)" class="button  mt-5">
-        <mat-icon>add</mat-icon>
-      </button>
-
-
-
 </mat-card>
