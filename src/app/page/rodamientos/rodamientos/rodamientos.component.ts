@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as alertify from 'alertifyjs'
 import { RodamientoService } from 'src/app/services/rodamiento/rodamiento.service';
 import { VehiculoService } from 'src/app/services/vehiculo/vehiculo.service';
+import * as moment from 'moment';
 
 
 interface Food {
@@ -36,7 +37,7 @@ export class RodamientosComponent implements OnInit {
 
   today: Date = new Date();
   pipe = new DatePipe('en-US');
-  Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
+  Fecha = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
   constructor(private fb: FormBuilder, private service_rodamiento: RodamientoService, private service_vehiculos: VehiculoService) { }
 
   ngOnInit(): void {
@@ -65,18 +66,22 @@ export class RodamientosComponent implements OnInit {
 
   createRodamiento() {
     console.log(this.fromRodamiento.value);
+    this.fromRodamiento.value.fecha = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
+    console.log('FECHAAAAAAAA', this.fromRodamiento.value.fecha);
+    
 
     const dataRodamiento = {
       "rodamiento": {
-        "fecha": this.Fecha,
+        "fecha": this.fromRodamiento.value.fecha,
         "hora": this.fromRodamiento.value.hora,
         "lugar": this.fromRodamiento.value.lugar,
         "numero_ruta": this.fromRodamiento.value.numero_rodamiento,
       }
 
     }
-    console.log("-----",dataRodamiento);
-    console.log("*******",this.fromRodamiento.value.numero_buseta);
+    console.log("-----",dataRodamiento.rodamiento.fecha);
+    console.log("Actual",this.Fecha);
+    
     
     this.service_rodamiento.postRodamiento(this.fromRodamiento.value).subscribe((data: any) => {
       console.log("RESPUESTA DE POST", data);

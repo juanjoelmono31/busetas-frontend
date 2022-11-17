@@ -37,7 +37,7 @@ export class ConductorComponent implements OnInit {
       //DATOS BASICOS
       nombre: ['', Validators.required],
       cedula: ['', Validators.required],
-      numero_celular: ['', Validators.required],
+      numero_celular: ['', [Validators.required, Validators.minLength(10)]],
       vehiculo: ['', Validators.required],
       rol: ['', Validators.required],
     
@@ -45,7 +45,7 @@ export class ConductorComponent implements OnInit {
   }
 
   createConductor(){
-    console.log(this.formConductor.value);
+    console.log(this.formConductor.valid);
 
     this.service_conductor.postConductor(this.formConductor.value).subscribe((data: any)=>{
       console.log("REPSUESTA DE POST", data);

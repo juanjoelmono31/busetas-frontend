@@ -44,7 +44,7 @@ export class DashBoardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
+    this.Fecha = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!)
     this.UserRol = this.dataUser.conductor[0].rol
     
@@ -97,7 +97,7 @@ export class DashBoardComponent implements OnInit {
 
   exportAsXLSX() {
     this.listasRutas.otros = this.valores
-    this.exportService.exportToExcel(this.listasRutas, 'info_rodamientos');
+    this.exportService.exportToExcel(this.listaRutasFecha, 'info_rodamientos');
   }
 
   openDialog() {

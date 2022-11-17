@@ -5,7 +5,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { ControlVehiculoService } from 'src/app/services/control-vehiculo/control-vehiculo.service';
 
-
 @Component({
   selector: 'app-info-vehiculos',
   templateUrl: './info-vehiculos.component.html',
@@ -29,13 +28,14 @@ export class InfoVehiculosComponent implements OnInit {
   totalBasicos = 0
   totalGastos = 0
   totalBonificaciones = 0
-  
+  value: any;
+  fechaArray : any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public placa: any, private service_controlVehiculo: ControlVehiculoService, private fb: FormBuilder) {
     this.FiltroFecha = this.fb.group({
       StartDate: ['', Validators.required],
       EndDate: ['', Validators.required]
-    })
+    })    
   }
 
   ngOnInit(): void {
@@ -43,30 +43,33 @@ export class InfoVehiculosComponent implements OnInit {
   }
 
   placasFind() {
+    debugger
     this.service_controlVehiculo.getCtrlPlaca(this.placa.placa).subscribe(
       (data: any) => {
         this.infoVehiculo = data['Placa']
-        console.log(data);
-
       }
     )
   }
 
   SendDataonChange(event: any) {
     this.limpiarTotales();
-    
     const fechaSelect = moment(event.target.value).format('MMMM');
+    debugger
     for (let index = 0; index < this.infoVehiculo.length; index++) {
       const fecha = this.infoVehiculo[index].fecha;
-      const fechaTranform = this.pipe.transform(fecha, 'yyyy-dd-MM');
-      const element = moment(fechaTranform).format('MMMM');
+      this.selectMes(fecha);
       const valorNetoTotal = this.infoVehiculo[index].neto_total;
-      if (element === fechaSelect) {
+      if (this.fechaArray === fechaSelect) {
         this.infoVehiculosMes.push(this.infoVehiculo[index]);
         this.sumaNetos = valorNetoTotal + this.sumaNetos;
         this.sumaTotales(this.infoVehiculo[index]);
       }
     }
+  }
+
+  selectMes(fecha: string) {
+    this.fechaArray = moment(fecha).format('MMMM');  
+    console.log(this.fechaArray);
   }
 
   sumaTotales(data: any) {

@@ -10,14 +10,14 @@
         <div class="form-group input_especial">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label>Ingrese la placa </mat-label>
-                <input matInput type="text" name="placa" formControlName="placa" aplaceholder="" value="placa">
+                <input matInput type="text" name="placa" formControlName="placa"  value="placa" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
             </mat-form-field>
         </div>
         <br>
         <div class="form-group input_especial">
             <mat-form-field mat-form-field class="example-full-width ">
                 <mat-label>Ingrese el numero del vehiculo </mat-label>
-                <input matInput type="text" name="numero" formControlName="numero" placeholder="">
+                <input matInput type="number" name="numero" formControlName="numero" >
             </mat-form-field>
 
         </div>
@@ -25,7 +25,7 @@
         <div class="form-group input_especial">
             <mat-form-field mat-form-field class="example-full-width ">
                 <mat-label>Ingrese el nombre del propietario</mat-label>
-                <input matInput type="text" name="propietario" formControlName="propietario" placeholder="">
+                <input matInput type="text" name="propietario" formControlName="propietario" >
             </mat-form-field>
 
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group input_especial">
             <mat-form-field mat-form-field class="example-full-width ">
                 <mat-label>Ingrese el modelo del vehiculo</mat-label>
-                <input matInput ype="text" name="modelo" formControlName="modelo" placeholder="">
+                <input matInput ype="text" name="modelo" formControlName="modelo" >
             </mat-form-field>
 
         </div>
@@ -128,7 +128,7 @@
         <br>
         <mat-dialog-actions align="end">
             <button mat-button color="warn" mat-dialog-close>Cancelar</button>
-            <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="createVehiculo()">Guardar</button>
+            <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial [disabled]="formVehiculo.invalid" (click)="createVehiculo()">Guardar</button>
         </mat-dialog-actions>
 
 

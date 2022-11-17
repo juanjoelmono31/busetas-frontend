@@ -20,7 +20,7 @@ export class ControlVehiculosComponent implements OnInit {
   listPlacas: any = []
   today: Date = new Date();
   pipe = new DatePipe('en-US');
-  Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
+  Fecha = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
   panelOpenState = false;
   dataUser: any;
   conductor: any
@@ -48,6 +48,7 @@ export class ControlVehiculosComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearForm();
+    
  
     this.service_controlVehiculo.getControlVehiculo().subscribe((data) => {
       console.log("LLEGA INFO DEL SERVICIO", data);     
@@ -84,17 +85,17 @@ export class ControlVehiculosComponent implements OnInit {
       //numero_buseta: ['', Validators.required],
       reg_salida: ['', Validators.required],
       reg_llegada: ['', Validators.required],
-      neto_total: ['', Validators.required],
+      neto_total: [''],
       conductor: [this.conductor, Validators.required],
       placa: [this.Placa, Validators.required],
       estado: ['En ruta', Validators.required],
       acpm: ['', Validators.required],
       //montaje_llantas: ['', Validators.required],
-      total_gastos: ['', Validators.required],
-      bonificacion: ['', Validators.required],
+      total_gastos: [''],
+      bonificacion: [''],
       otros: this.fb.array([]),
-      basico: ['', Validators.required],
-      otros_gastos: ['', Validators.required],
+      basico: [''],
+      otros_gastos: [''],
     })
 
   }
@@ -104,6 +105,9 @@ export class ControlVehiculosComponent implements OnInit {
   }
 
   crearControlVehiculo() {
+    console.log(this.formControlVehiculo.valid);
+    console.log(this.formControlVehiculo);
+    
     this.CalculoBonificacion();
 
     this.formControlVehiculo.value.ruta = this.Ruta

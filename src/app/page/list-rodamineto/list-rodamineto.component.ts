@@ -5,6 +5,7 @@ import { DatePipe, DOCUMENT } from '@angular/common';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RodamientosComponent } from '../rodamientos/rodamientos/rodamientos.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-list-rodamineto',
@@ -24,7 +25,7 @@ export class ListRodaminetoComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document, private service_rodamiento: RodamientoService, private service_vehiculos: VehiculoService, private exportService: ExporterService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
+    this.Fecha = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
     console.log('Esta es la fecha actual', this.Fecha);
     
     this.service_vehiculos.getVehiculo().subscribe((data: any) => {
