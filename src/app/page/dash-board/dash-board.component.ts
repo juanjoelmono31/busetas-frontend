@@ -12,6 +12,7 @@ import { ConductorComponent } from '../conductor/conductor.component';
 import { ControlVehiculosComponent } from '../control-vehiculos/control-vehiculos.component';
 import { InfoVehiculosComponent } from '../info-vehiculos/info-vehiculos/info-vehiculos.component';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dash-board',
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./dash-board.component.scss']
 })
 export class DashBoardComponent implements OnInit {
+
   dataUser: any;
   UserRol: string = "";
   infoRodamiento: any
@@ -34,57 +36,40 @@ export class DashBoardComponent implements OnInit {
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   Fecha: any;
-
   estadoBtn: boolean = false;
+  fechaSelect : any ;
+  formSelect!: FormGroup
 
-  constructor(@Inject(DOCUMENT) private document: Document, private service_vehiculos: VehiculoService, private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, public dialog: MatDialog, private service_rodamiento: RodamientoService, private exportService: ExporterService, public router: Router) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private service_vehiculos: VehiculoService, private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, public dialog: MatDialog, private service_rodamiento: RodamientoService, private exportService: ExporterService, public router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
     this.Fecha = this.pipe.transform(Date.now(), 'dd/MM/yyyy')
-    console.log('Esta es la fecha actual', this.Fecha);
-    
-
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!)
     this.UserRol = this.dataUser.conductor[0].rol
-    console.log('ACAAAAAAAA ESTA EL ID DEL VEHICULO', this.dataUser.conductor[0].rol)
-
+    
     this.service_vehiculos.getVehiculoID(this.dataUser.conductor[0].vehiculo).subscribe((data: any) => {
-      console.log("REPSUESTA VEHICULO", data);
       this.rodamientoVehiculo = data.rodamiento;
     })
 
     this.service_vehiculos.getVehiculo().subscribe((data) => {
       this.listaVehiculos = data
-      console.log("VEHICULOS", this.listaVehiculos);
       
     })
-
 
     this.service_controlVehiculo.getControlVehiculo().subscribe((data) => {
       this.listasRutas = data
 
-      console.log("LISTADO DE RUTAS", this.listasRutas);
-
-      
       for (let index = 0; index < this.listasRutas.length; index++) {
         if (this.listasRutas[index].placa === this.listasRutas[index].placa) {
 
           if(this.listasRutas[index].fecha === this.Fecha){
             this.listaRutasFecha.push(this.listasRutas[index])
           }
-          
-          
-          
-          const element = this.listasRutas[index].neto_total;
-          // const sumaNetos = element + element
-          // console.log('Totales netos', sumaNetos);
-          
+          const element = this.listasRutas[index].neto_total;     
         }
-        
       }
-      console.log("LISTA CON FECHA DE HOY",this.listaRutasFecha );
-
+      
       for (let index = 0; index < this.listaRutasFecha.length; index++) {        
         const valorNetoTotal = this.listaRutasFecha[index].neto_total;
         this.sumaNetosDiarios = valorNetoTotal + this.sumaNetosDiarios;
@@ -93,10 +78,7 @@ export class DashBoardComponent implements OnInit {
       for (let index = 0; index < this.listasRutas.length; index++) {
         const element = this.listasRutas[index].otros[index];
         this.valores = element + this.valores;
-        console.log('aca esta el element', element);
-
       }
-
 
       if (this.listasRutas.estado = ! 'En ruta') {
         this.estadoBtn = true
@@ -106,15 +88,18 @@ export class DashBoardComponent implements OnInit {
     })
   }
 
-  
+  createFrom() {
+    this.formSelect = this.fb.group({
+      cedula: ['']
+    })
 
+  }
 
   exportAsXLSX() {
     this.listasRutas.otros = this.valores
     this.exportService.exportToExcel(this.listasRutas, 'info_rodamientos');
-    console.log('**********************', this.valores);
-
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(ControlVehiculosComponent, {
       height: '600px',
@@ -123,19 +108,14 @@ export class DashBoardComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       this.router.navigateByUrl('/RefrshComponent', {skipLocationChange: true}).then(()=> this.router.navigate(["/dashboard"]));
     });
   }
 
   openInfoVehiculo(placa:string) {
-    console.log('esta es la placa', placa);
-    const dialogRef = this.dialog.open(InfoVehiculosComponent, {
-      
+    const dialogRef = this.dialog.open(InfoVehiculosComponent, {  
       width: '1500px',
       data: { placa }
     });
   }
 }
-
-

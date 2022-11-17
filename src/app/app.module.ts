@@ -33,6 +33,7 @@ import { CalendarioComponent } from './page/calendario/calendario.component';
 import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.component';
 import { InfoVehiculosComponent } from './page/info-vehiculos/info-vehiculos/info-vehiculos.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -68,9 +69,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatSelectModule,
     MatExpansionModule,
     MatTabsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule 
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

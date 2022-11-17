@@ -19,7 +19,8 @@
                         &nbsp;&nbsp;
                         <th>Placa</th>
                         &nbsp;&nbsp;
-
+                        <th>Ruta</th>
+                        &nbsp;&nbsp;
                         <th>Reg salida</th>
                         &nbsp;&nbsp;
                         <th>Reg llegada</th>
@@ -37,11 +38,9 @@
                         <th>Otros</th>
                         &nbsp;&nbsp;
                         <th>Total gastos</th>
+
                         &nbsp;&nbsp;
                         <th>Total diario</th>
-                        <!-- <th>
-                        Actualizar 
-                    </th> -->
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of listaRutasFecha">
@@ -57,7 +56,10 @@
                                 {{ item.placa }}
                             </td>
                             &nbsp;&nbsp;
-
+                            <td>
+                                {{ item.ruta }}
+                            </td>
+                            &nbsp;&nbsp;
                             <td>
                                 {{ item.reg_salida }}
                             </td>
@@ -70,7 +72,6 @@
                                 {{ item.reg_llegada - item.reg_salida }}
                             </td>
                             &nbsp;&nbsp;
-
                             <td>
                                 {{ (item.reg_llegada - item.reg_salida) * valorPasaje | currency }}
                             </td>
@@ -79,7 +80,6 @@
                                 {{ item.acpm | currency }}
                             </td>
                             &nbsp;&nbsp;
-
                             <td>
                                 {{ basico | currency }}
                             </td>
@@ -99,13 +99,6 @@
                             <td>
                                 {{ item.neto_total | currency }}
                             </td>
-
-                            <!-- <td>
-                            {{item.estado}}
-                        </td> -->
-                            <!-- <td>
-                            <mat-icon (click)="openDialog()">edit</mat-icon>
-                        </td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -113,16 +106,7 @@
                     <label style="font-weight: bold; font-size: 20px;">TOTAL DIARIO NETOS {{sumaNetosDiarios | currency}}</label>
                 </div>
             </div>
-            <div style="
-      width: 60%;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      margin-top: 10px;
-    " class="alert alert-info" role="alert" *ngIf="
-      rodamientoVehiculo.fecha != Fecha &&
-      this.dataUser.conductor[0].rol != 'admin'
-    ">
+            <div class="sinRodamiento" class="alert alert-info sinRodamiento" role="alert" *ngIf="rodamientoVehiculo.fecha != Fecha && this.dataUser.conductor[0].rol != 'admin'">
                 USUARIO SIN RODAMIENTO ASIGNADO
             </div>
             <div *ngIf="!estadoBtn" style="
@@ -147,32 +131,18 @@
         margin-left: auto;
         margin-right: auto;
       ">
-            <span style="font-size: 25px">LISTADO DE VEHICULOS CON INFORMACION DE MANTENIMIENTO - RUTAS DIARIAS - PANEL DE NOTIFICACIONES  </span
-      >
-    </div>
-    <div class="row">
-      <div
-        class="col-md-3"
-        *ngFor="let item of listaVehiculos"
-        (click)="openInfoVehiculo(item.placa)"
-      >
-        <br />
-        <mat-card class="cardNetos">
-          <mat-card-title>PLACA {{ item.placa }}</mat-card-title>
-          <mat-card-subtitle
-            >Numero Vehiculo {{ item.numero }}</mat-card-subtitle
-          >
-          <mat-card-content>
-            <!-- <p>
-              El valor priducido de este vehiculo hasta la fecha es de :
-              <span style="font-size: 20px; font-weight: 700">{{
-                item.netoTotal | currency
-              }}</span>
-            </p> -->
-            </mat-card-content>
-            </mat-card>
+            <span style="font-size: 25px">LISTADO DE VEHICULOS CON INFORMACION DE MANTENIMIENTO - RUTAS DIARIAS - PANEL DE NOTIFICACIONES  </span>
         </div>
+        <div class="row">
+            <div class="col-md-3" *ngFor="let item of listaVehiculos" (click)="openInfoVehiculo(item.placa)">
+                <br />
+                <mat-card class="cardNetos">
+                    <mat-card-title>PLACA {{ item.placa }}</mat-card-title>
+                    <mat-card-subtitle>Numero Vehiculo {{ item.numero }}</mat-card-subtitle>
+                    <mat-card-content>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </mat-tab>
-
 </mat-tab-group>
