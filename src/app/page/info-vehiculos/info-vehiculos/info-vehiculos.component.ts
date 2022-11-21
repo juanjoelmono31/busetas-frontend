@@ -1,9 +1,10 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { ControlVehiculoService } from 'src/app/services/control-vehiculo/control-vehiculo.service';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 
 @Component({
   selector: 'app-info-vehiculos',
@@ -31,7 +32,7 @@ export class InfoVehiculosComponent implements OnInit {
   value: any;
   fechaArray : any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public placa: any, private service_controlVehiculo: ControlVehiculoService, private fb: FormBuilder) {
+  constructor(@Inject(MAT_DIALOG_DATA) public placa: any, @Inject(DOCUMENT) private document: Document, private exportService: ExporterService, private service_controlVehiculo: ControlVehiculoService, private fb: FormBuilder) {
     this.FiltroFecha = this.fb.group({
       StartDate: ['', Validators.required],
       EndDate: ['', Validators.required]
@@ -43,7 +44,7 @@ export class InfoVehiculosComponent implements OnInit {
   }
 
   placasFind() {
-    debugger
+    
     this.service_controlVehiculo.getCtrlPlaca(this.placa.placa).subscribe(
       (data: any) => {
         this.infoVehiculo = data['Placa']
@@ -54,7 +55,7 @@ export class InfoVehiculosComponent implements OnInit {
   SendDataonChange(event: any) {
     this.limpiarTotales();
     const fechaSelect = moment(event.target.value).format('MMMM');
-    debugger
+    
     for (let index = 0; index < this.infoVehiculo.length; index++) {
       const fecha = this.infoVehiculo[index].fecha;
       this.selectMes(fecha);
@@ -70,6 +71,10 @@ export class InfoVehiculosComponent implements OnInit {
   selectMes(fecha: string) {
     this.fechaArray = moment(fecha).format('MMMM');  
     console.log(this.fechaArray);
+  }
+
+  exportAsXLSX() {
+    this.exportService.exportToExcel(this.infoVehiculosMes, 'info_mes');
   }
 
   sumaTotales(data: any) {
@@ -91,3 +96,5 @@ export class InfoVehiculosComponent implements OnInit {
     this.sumaNetos = 0;
   }
 }
+
+

@@ -25,6 +25,7 @@ export class DashBoardComponent implements OnInit {
   UserRol: string = "";
   infoRodamiento: any
   listasRutas: any = []
+  listasRutasConductor: any = []
   listaRutasFecha: any = []
   listasusuarios: any = []
   listaVehiculos: any = []
@@ -59,17 +60,37 @@ export class DashBoardComponent implements OnInit {
 
     this.service_controlVehiculo.getControlVehiculo().subscribe((data) => {
       this.listasRutas = data
+      
+      
 
       for (let index = 0; index < this.listasRutas.length; index++) {
-        if (this.listasRutas[index].placa === this.listasRutas[index].placa) {
-
+        console.log('LISTA DE RUTAS', this.listaRutasFecha);
+        
+        // if (this.listasRutas[index].placa === this.listasRutas[index].placa) {
           if(this.listasRutas[index].fecha === this.Fecha){
             this.listaRutasFecha.push(this.listasRutas[index])
           }
           const element = this.listasRutas[index].neto_total;     
+          // }
         }
-      }
+        
+        
       
+        for (let index = 0; index < this.listaRutasFecha.length; index++) {
+          const vehiculo = this.listaRutasFecha[index].conductor.vehiculo;
+          const listaConductor = this.listaRutasFecha[index]
+          if(this.dataUser.conductor[0].rol === 'conductor'){
+            if (vehiculo === this.dataUser.conductor[0].vehiculo) {
+              this.listasRutasConductor.push(listaConductor) 
+              console.log('LISA DE RUTAS CONDUCTOR',this.listasRutasConductor);
+            }
+          }else{
+            this.listasRutasConductor.push(this.listaRutasFecha[index])
+          }  
+      }
+    
+
+
       for (let index = 0; index < this.listaRutasFecha.length; index++) {        
         const valorNetoTotal = this.listaRutasFecha[index].neto_total;
         this.sumaNetosDiarios = valorNetoTotal + this.sumaNetosDiarios;

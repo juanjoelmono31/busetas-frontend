@@ -65,11 +65,14 @@ export class RodamientosComponent implements OnInit {
   }
 
   createRodamiento() {
-    console.log(this.fromRodamiento.value);
-    this.fromRodamiento.value.fecha = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
-    console.log('FECHAAAAAAAA', this.fromRodamiento.value.fecha);
     
+    console.log(this.fromRodamiento.value);
+    console.log('Esta es la fecha que necesito',this.fromRodamiento.value.fecha)
+    const fecha = this.pipe.transform(this.fromRodamiento.value.fecha, 'MM/dd/yyyy');
 
+    console.log("FECHA", fecha);
+    this.fromRodamiento.value.fecha = fecha
+   
     const dataRodamiento = {
       "rodamiento": {
         "fecha": this.fromRodamiento.value.fecha,
@@ -79,8 +82,9 @@ export class RodamientosComponent implements OnInit {
       }
 
     }
-    console.log("-----",dataRodamiento.rodamiento.fecha);
-    console.log("Actual",this.Fecha);
+    
+    console.log("datos formulario",dataRodamiento);
+    console.log("Fomulario",this.fromRodamiento.value);
     
     
     this.service_rodamiento.postRodamiento(this.fromRodamiento.value).subscribe((data: any) => {

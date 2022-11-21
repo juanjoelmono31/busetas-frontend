@@ -1,8 +1,14 @@
 <mat-dialog-content class="mat-typography">
+    <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
+        <i class="material-icons">file_download</i>
+        EXPORTAR INFO DEL MES
+      </button>
+
     <h3>Selecciona un mes para revisar informacion de los vehiculos</h3>
     <input type="month" name="fecha" id="fecha" class="" [(value)]="Fecha" (change)="SendDataonChange($event)">
     <br />
     <br />
+    
     <table class="table">
         <thead class="thead-dark">
             <th>Fecha</th>

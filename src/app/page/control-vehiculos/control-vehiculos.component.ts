@@ -25,6 +25,7 @@ export class ControlVehiculosComponent implements OnInit {
   dataUser: any;
   conductor: any
   Ruta: any;
+  fechaRodamiento: any;
   Placa: any;
   bonificacion: any
   valorPasaje = 2080;
@@ -40,6 +41,7 @@ export class ControlVehiculosComponent implements OnInit {
     console.log("Vehiculo usuario", this.conductor);
     this.service_vehiculo.getVehiculoID(this.conductor.vehiculo).subscribe((data: any)=>{
       this.Ruta = data.rodamiento.numero_ruta
+      this.fechaRodamiento = data.rodamiento.fecha
       this.Placa = data.placa     
       this.netoVehiculo = data.netoTotal
       console.log("SERVICIO DEL ID VEHICULO", data);
@@ -60,7 +62,7 @@ export class ControlVehiculosComponent implements OnInit {
     })
 
     this.service_vehiculo.getVehiculo().subscribe((data) => {
-      console.log("LLEGA INFO DEL SERVICIO", data);
+      console.log("LLEGA INFO DEL SERVICIO de vehiculos", data);
       this.listPlacas = data  
     })
   }
@@ -79,7 +81,7 @@ export class ControlVehiculosComponent implements OnInit {
 
   crearForm(){
     this.formControlVehiculo = this.fb.group({
-      fecha: [this.Fecha, Validators.required],
+      fecha: [this.fechaRodamiento, Validators.required],
       ruta: [this.Ruta, Validators.required],
       numero_vueltas: ['', Validators.required],
       //numero_buseta: ['', Validators.required],
@@ -112,8 +114,9 @@ export class ControlVehiculosComponent implements OnInit {
 
     this.formControlVehiculo.value.ruta = this.Ruta
     this.formControlVehiculo.value.placa = this.Placa
+    this.formControlVehiculo.value.fecha = this.fechaRodamiento
+    
     this.formControlVehiculo.value.bonificacion = this.bonificacion
-
     for (let index = 0; index < this.formControlVehiculo.value.otros.length; index++) {
       const element = this.formControlVehiculo.value.otros[index].valor;
       this.valores = element + this.valores;
@@ -133,6 +136,7 @@ export class ControlVehiculosComponent implements OnInit {
       
     }
     console.log("Neto total", this.formControlVehiculo.value.neto_total);
+    
     
     this.service_controlVehiculo.postControlVehiculo(this.formControlVehiculo.value).subscribe((data: any)=>{
       console.log("REPSUESTA DE POST", data);
