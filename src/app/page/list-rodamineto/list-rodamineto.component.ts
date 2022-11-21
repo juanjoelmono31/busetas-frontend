@@ -70,7 +70,10 @@ export class ListRodaminetoComponent implements OnInit {
 
 
   }
-
+  recargar() {
+    this.listaRodamientosFecha = []
+    this.ngOnInit()
+  }
   exportAsXLSX() {
     this.exportService.exportToExcel(this.listaRodamientosFecha, 'info_rodamientos');
   }

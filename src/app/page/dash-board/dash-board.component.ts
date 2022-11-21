@@ -133,6 +133,13 @@ export class DashBoardComponent implements OnInit {
     });
   }
 
+  recargar() {
+    this.listasRutasConductor = []
+    this.listasRutas = []
+    this.listaRutasFecha= []
+    this.ngOnInit()
+  }
+
   openInfoVehiculo(placa:string) {
     const dialogRef = this.dialog.open(InfoVehiculosComponent, {  
       width: '1500px',

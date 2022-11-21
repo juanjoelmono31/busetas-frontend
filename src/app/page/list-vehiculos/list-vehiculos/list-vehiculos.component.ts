@@ -35,4 +35,9 @@ export class ListVehiculosComponent implements OnInit {
     });
   }
 
+  recargar() {
+    this.listVehiculos = []
+    this.ngOnInit()
+  }
+
 }

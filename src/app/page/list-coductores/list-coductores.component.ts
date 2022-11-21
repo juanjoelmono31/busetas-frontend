@@ -35,4 +35,9 @@ export class ListCoductoresComponent implements OnInit {
     });
   }
 
+  recargar() {
+    this.listConductores = []
+    this.ngOnInit()
+  }
+
 }

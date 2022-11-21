@@ -4,10 +4,15 @@
 <mat-tab-group mat-align-tabs="end">
     <mat-tab label="Lista Control Rutas">
         <mat-card class="card">
+            <button mat-raised-button color="primary" (click)="recargar()">
+                <mat-icon>refresh</mat-icon>
+            </button>
             <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
             <i class="material-icons">file_download</i>
             EXPORTAR INFORMACIÓN A EXCEL ({{Fecha}})
             </button>
+            <br>
+            <br>
 
             <h1>CONTROL DE RUTAS</h1>
             <div class="table-responsive">

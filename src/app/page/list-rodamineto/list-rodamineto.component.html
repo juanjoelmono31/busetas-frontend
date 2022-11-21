@@ -1,11 +1,16 @@
 <app-menu></app-menu>
 <br />
 <mat-card class="card">
+    <button mat-raised-button color="primary" (click)="recargar()">
+        <mat-icon>refresh</mat-icon>
+    </button>
+
     <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
     <i class="material-icons">file_download</i>
     EXPORTAR RODAMIENTO DEL ({{Fecha}})
   </button>
-
+    <br>
+    <br>
     <h1>LISTA RODAMIENTOS</h1>
     <div class="lista_vehiculos" id="lista_vehiculos">
         <table class="table">
