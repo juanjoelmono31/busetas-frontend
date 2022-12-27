@@ -38,6 +38,7 @@ export class InfoVehiculosComponent implements OnInit {
   listGastos: any = ['Rodamiento', 'Seguro', 'Conductor (fijo)', 'Conductor (relevo)', 'Otros']
   listaGastos: any;
   listaMantenimiento: any;
+  liquidoTotal = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA) public placa: any, @Inject(DOCUMENT) private document: Document, private exportService: ExporterService, private service_controlVehiculo: ControlVehiculoService, private fb: FormBuilder, private service_vehiculo: VehiculoService,) {
     this.FiltroFecha = this.fb.group({
@@ -58,8 +59,9 @@ export class InfoVehiculosComponent implements OnInit {
       this.listaMantenimiento = data.mantenimiento_taller
       this.calculosAdmin();
       this.clalculosMantenimiento();
+      this.calcularLiquidoTotal();
     })
-    
+        
     this.placasFind();
     this.selectMes(this.fechaArray);
   }
@@ -76,6 +78,7 @@ export class InfoVehiculosComponent implements OnInit {
 
   agregarGastosAdmin(){
     const lessonForm = this.fb.group({
+      fechaGasto: [''],
       descripcion: ['', Validators.required],
       valor: ['', Validators.required]
     })
@@ -85,7 +88,7 @@ export class InfoVehiculosComponent implements OnInit {
 
   agregarMantenimiento() {
     const lessonForm = this.fb.group({
-      //fecha: ['', Validators.required],
+      fechaMantemiento: [''],
       descripcion_mantenimiento: ['', Validators.required],
       valor_mantenimiento: ['', Validators.required]
     })
@@ -94,9 +97,9 @@ export class InfoVehiculosComponent implements OnInit {
   }
 
   crearGastosAdmin() {
-
     for (let index = 0; index < this.formInfoVehiculos.value.gastos_admin.length; index++) {
         const element = this.formInfoVehiculos.value.gastos_admin[index];
+        this.formInfoVehiculos.value.gastos_admin[index].fechaGasto =  this.pipe.transform(Date.now(), 'MM/dd/yyyy')
         this.listaGastos.push(element)
       }
 
@@ -111,6 +114,7 @@ export class InfoVehiculosComponent implements OnInit {
   crearMantenimientoTaller() {
     for (let index = 0; index < this.formInfoVehiculos.value.mantenimiento_taller.length; index++) {
       const element = this.formInfoVehiculos.value.mantenimiento_taller[index];
+      this.formInfoVehiculos.value.mantenimiento_taller[index].fechaMantemiento = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
       this.listaMantenimiento.push(element)
       console.log("LISTA MANTENIMIENTO", this.listaMantenimiento);
       
@@ -205,6 +209,12 @@ export class InfoVehiculosComponent implements OnInit {
     console.log("ESTOS SON LOS VALORES SUMADOS DE LOS MANTENIMIENTOS", this.valoresMantenimientos);
     
   }
+
+  calcularLiquidoTotal(){
+    console.log("LIQUIDO TOTAL = ", Number(this.sumaNetos - this.valores - this.valoresMantenimientos));
+    this.liquidoTotal = Number(this.sumaNetos - this.valores - this.valoresMantenimientos);
+  }
+
 }
 
 
