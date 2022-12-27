@@ -1,10 +1,11 @@
 import { DatePipe, DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { ControlVehiculoService } from 'src/app/services/control-vehiculo/control-vehiculo.service';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
+import { VehiculoService } from 'src/app/services/vehiculo/vehiculo.service';
 
 @Component({
   selector: 'app-info-vehiculos',
@@ -13,6 +14,7 @@ import { ExporterService } from 'src/app/services/exporter/exporter.service';
 })
 export class InfoVehiculosComponent implements OnInit {
   panelOpenState = false;
+  formInfoVehiculos!: FormGroup
 
   FiltroFecha!: FormGroup
   infoVehiculo: any = []
@@ -29,10 +31,15 @@ export class InfoVehiculosComponent implements OnInit {
   totalBasicos = 0
   totalGastos = 0
   totalBonificaciones = 0
+  valores = 0
+  valoresMantenimientos = 0
   value: any;
   fechaArray : any;
+  listGastos: any = ['Rodamiento', 'Seguro', 'Conductor (fijo)', 'Conductor (relevo)', 'Otros']
+  listaGastos: any;
+  listaMantenimiento: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public placa: any, @Inject(DOCUMENT) private document: Document, private exportService: ExporterService, private service_controlVehiculo: ControlVehiculoService, private fb: FormBuilder) {
+  constructor(@Inject(MAT_DIALOG_DATA) public placa: any, @Inject(DOCUMENT) private document: Document, private exportService: ExporterService, private service_controlVehiculo: ControlVehiculoService, private fb: FormBuilder, private service_vehiculo: VehiculoService,) {
     this.FiltroFecha = this.fb.group({
       StartDate: ['', Validators.required],
       EndDate: ['', Validators.required]
@@ -40,8 +47,91 @@ export class InfoVehiculosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.placasFind()
+    this.crearFrom()
+
+    this.service_vehiculo.getVehiculo().subscribe((data: any) =>{
+      console.log("LLEGA INFO DEL SERVICIO DEL VEHICULO", data);
+    })
+
+    this.service_vehiculo.getVehiculoID(this.placa.id).subscribe((data: any)=>{
+      this.listaGastos = data.gastos_admin
+      this.listaMantenimiento = data.mantenimiento_taller
+      this.calculosAdmin();
+      this.clalculosMantenimiento();
+    })
+    
+    this.placasFind();
+    this.selectMes(this.fechaArray);
   }
+
+  crearFrom() {
+    this.formInfoVehiculos = this.fb.group({
+      gastos_admin: this.fb.array([]),
+      mantenimiento_taller: this.fb.array([]),
+    })
+
+
+
+  }
+
+  agregarGastosAdmin(){
+    const lessonForm = this.fb.group({
+      descripcion: ['', Validators.required],
+      valor: ['', Validators.required]
+    })
+
+    this.gastos_admin.push(lessonForm);
+  }
+
+  agregarMantenimiento() {
+    const lessonForm = this.fb.group({
+      //fecha: ['', Validators.required],
+      descripcion_mantenimiento: ['', Validators.required],
+      valor_mantenimiento: ['', Validators.required]
+    })
+
+    this.mantenimiento_taller.push(lessonForm)
+  }
+
+  crearGastosAdmin() {
+
+    for (let index = 0; index < this.formInfoVehiculos.value.gastos_admin.length; index++) {
+        const element = this.formInfoVehiculos.value.gastos_admin[index];
+        this.listaGastos.push(element)
+      }
+
+      const gastosAdmin = {
+        gastos_admin:
+          this.listaGastos
+      }
+      this.service_vehiculo.putGastosAdmin(this.placa.id, gastosAdmin).subscribe((response: any) => {
+      })
+  }
+
+  crearMantenimientoTaller() {
+    for (let index = 0; index < this.formInfoVehiculos.value.mantenimiento_taller.length; index++) {
+      const element = this.formInfoVehiculos.value.mantenimiento_taller[index];
+      this.listaMantenimiento.push(element)
+      console.log("LISTA MANTENIMIENTO", this.listaMantenimiento);
+      
+    }
+    const mantenimientoTaller = {
+      mantenimiento_taller:
+        this.listaMantenimiento
+    }
+    this.service_vehiculo.putMantenimiento_taller(this.placa.id, mantenimientoTaller).subscribe((response: any) => {
+
+    })
+  }
+  
+  get gastos_admin() {
+    return this.formInfoVehiculos.get('gastos_admin') as FormArray;
+  }
+
+  get mantenimiento_taller() {
+    return this.formInfoVehiculos.get('mantenimiento_taller') as FormArray;
+  }
+
 
   placasFind() {
     
@@ -69,6 +159,7 @@ export class InfoVehiculosComponent implements OnInit {
   }
 
   selectMes(fecha: string) {
+    
     this.fechaArray = moment(fecha).format('MMMM');  
     console.log(this.fechaArray);
   }
@@ -94,6 +185,25 @@ export class InfoVehiculosComponent implements OnInit {
     this.totalGastos = 0;
     this.infoVehiculosMes = [];
     this.sumaNetos = 0;
+  }
+
+
+  calculosAdmin() {
+    
+    for (let index = 0; index < this.listaGastos.length; index++) {
+      const element = this.listaGastos[index].valor;
+      this.valores = element + this.valores
+    }
+    console.log("ESTOS SON LOS VALORES", this.valores);
+  }
+
+  clalculosMantenimiento() {
+    for (let index = 0; index < this.listaMantenimiento.length; index++) {
+      const element = this.listaMantenimiento[index].valor_mantenimiento;
+      this.valoresMantenimientos = element + this.valoresMantenimientos
+    }
+    console.log("ESTOS SON LOS VALORES SUMADOS DE LOS MANTENIMIENTOS", this.valoresMantenimientos);
+    
   }
 }
 

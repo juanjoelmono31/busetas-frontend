@@ -34,6 +34,10 @@ import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.
 import { InfoVehiculosComponent } from './page/info-vehiculos/info-vehiculos/info-vehiculos.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AsignarPicoPlacaComponent } from './page/asignar-pico-placa/asignar-pico-placa.component';
+import { BryntumCalendarModule } from '@bryntum/calendar-angular';
+
+
 
 @NgModule({
   declarations: [
@@ -50,7 +54,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     RodamientosComponent,
     CalendarioComponent,
     ListRodaminetoComponent,
-    InfoVehiculosComponent
+    InfoVehiculosComponent,
+    AsignarPicoPlacaComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -70,7 +76,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatExpansionModule,
     MatTabsModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+   
+   
+   
+
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

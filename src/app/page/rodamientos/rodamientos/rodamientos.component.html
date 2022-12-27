@@ -1,27 +1,19 @@
 <div class="formulario_variables input_especial">
-  <form [formGroup]="fromRodamiento" (ngSubmit)="createRodamiento()">
+  <form [formGroup]="fromRodamiento">
     <br>
    
     <br>
     <div class="form-group">
       <mat-form-field appearance="fill">
         <mat-label>Ingrese la fecha del rodamiento</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="fecha">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <input  matInput [matDatepicker]="picker" formControlName="fecha">
         <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle  matIconSuffix [for]="picker"></mat-datepicker-toggle>
       </mat-form-field>
-
-      <!-- <mat-form-field mat-form-field class="example-full-width">
-        <mat-label>Ingrese la fecha del rodamiento</mat-label>
-        <input
-          matInput
-          type="text"
-          name="fecha"
-          formControlName="fecha"
-          placeholder=""
-        />
-      </mat-form-field> -->
     </div>
+    
+    
+      
     <br />
     <div class="form-group">
       <mat-form-field mat-form-field class="example-full-width">
@@ -40,8 +32,8 @@
       <mat-label>Seleccione buseta</mat-label>
       <mat-select name="numero_buseta" formControlName="numero_buseta">
         <!-- [disabled]="item.rodamiento.fecha == this.Fecha" -->
-        <mat-option *ngFor="let item of listVehiculos" [value]="item">
-          {{ item.placa }} ({{ item.numero }})
+        <mat-option *ngFor="let item of listVehiculos" [disabled]="item.pico_placa.fecha === Fecha"  [value]="item">
+          {{ item.placa }} ({{ item.numero }})  ({{item.estado}}) 
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -66,17 +58,68 @@
       </mat-select>
     </mat-form-field>
     <br />
-    <br />
-    <mat-dialog-actions align="end">
-      <button mat-button color="warn" mat-dialog-close>Cancelar</button>
+    
+  <mat-accordion class="input_especial" *ngIf="info">
+    <mat-expansion-panel (opened)="panelOpen = true" (closed)="panelOpen = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>Revisar informacion </b>  
+      </mat-panel-title>
+      <mat-panel-description>
+        {{panelOpen ? '' : ''}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="row">
+      <div class="col-6 from-group">
+        <mat-label> <b> Fecha: </b>   {{fromRodamiento.value.fecha | date}} </mat-label>
+      </div>
+  
+      <div class="col-6 from-group">
+        <mat-label> <b> Hora: </b> {{fromRodamiento.value.hora }}  </mat-label>
+      </div>
+    </div>
+      <br>
+      <div class="row">
+        <div class="col-6 from-group">
+          <mat-label> <b> Lugar: </b> {{fromRodamiento.value.lugar }}  </mat-label>
+        </div>
+  
+        <div class="col-6 from-group">
+          <mat-label> <b> Numero ruta: </b> {{fromRodamiento.value.numero_rodamiento }}  </mat-label>
+        </div>
+      </div>
+      <br>
+    <div class="row">
+      <div class="col-6 from-group">
+        <mat-label> <b> Buseta: </b> {{fromRodamiento.value.numero_buseta.placa }} ({{fromRodamiento.value.numero_buseta.numero }}) </mat-label>
+      </div>
+    </div>
+
+    <br>
+    <br>
+     <button
+        mat-button
+        cdkFocusInitial
+        style="background-color: #EB7827; color: white;"
+        (click)="createRodamiento()" 
+        mat-dialog-close
+      >
+      Guardar
+    </button>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<mat-dialog-actions align="end">
+      <button mat-button color="warn" mat-dialog-close>Cerrar</button>
       <button
         mat-button
-        type="submit"
-        color="primary"
-        [mat-dialog-close]="true" [disabled]="fromRodamiento.invalid"
         cdkFocusInitial
+        style="background-color: #EB7827; color: white;"
+        (click)="revisarInfo()"
       >
-        Guardar
+      <!-- [disabled]="fromRodamiento.invalid" -->
+        Revisar
       </button>
     </mat-dialog-actions>
   </form>

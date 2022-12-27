@@ -11,6 +11,7 @@ import { ConfigVariablesComponent } from './page/config-variables/config-variabl
 import { RodamientosComponent } from './page/rodamientos/rodamientos/rodamientos.component';
 import { CalendarioComponent } from './page/calendario/calendario.component';
 import { ListRodaminetoComponent } from './page/list-rodamineto/list-rodamineto.component';
+import { AsignarPicoPlacaComponent } from './page/asignar-pico-placa/asignar-pico-placa.component';
 
 const routes: Routes = [
   
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path: 'variables', component: ConfigVariablesComponent},
   //{path: 'rodamiento', component: RodamientosComponent},
   {path: 'calendario', component: CalendarioComponent},/*  */
-  {path: 'listarodamiento', component: ListRodaminetoComponent},/*  */
+  {path: 'listarodamiento', component: ListRodaminetoComponent},
+  {path: 'picoplaca', component: AsignarPicoPlacaComponent},/*  */
 
 ];
 

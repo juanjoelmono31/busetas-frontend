@@ -10,15 +10,15 @@ export class RodamientoService {
   constructor(private http: HttpClient) { }
 
   getRodamiento() {
-    return this.http.get('http://54.164.205.82:3000/rodamiento');
+    return this.http.get('http://localhost:3000/rodamiento');
   }
 
   postRodamiento(rodamientoRegister: RodamientoModel) {
-    return this.http.post('http://54.164.205.82:3000/rodamiento', rodamientoRegister)
+    return this.http.post('http://localhost:3000/rodamiento', rodamientoRegister)
   }
 
   getRodamientoId(id: string) {
-    return this.http.get('http://54.164.205.82:3000/rodamiento/' + id)
+    return this.http.get('http://localhost:3000/rodamiento/' + id)
   }
 
 

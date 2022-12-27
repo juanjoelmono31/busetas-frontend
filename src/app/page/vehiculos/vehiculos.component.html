@@ -25,7 +25,7 @@
         <div class="form-group input_especial">
             <mat-form-field mat-form-field class="example-full-width ">
                 <mat-label>Ingrese el nombre del propietario</mat-label>
-                <input matInput type="text" name="propietario" formControlName="propietario" >
+                <input matInput type="text" name="propietario" formControlName="propietario" style="text-transform:capitalize">
             </mat-form-field>
 
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group input_especial">
             <mat-form-field mat-form-field class="example-full-width ">
                 <mat-label>Ingrese el modelo del vehiculo</mat-label>
-                <input matInput ype="text" name="modelo" formControlName="modelo" >
+                <input matInput type="number" name="modelo" formControlName="modelo" >
             </mat-form-field>
 
         </div>
@@ -128,7 +128,7 @@
         <br>
         <mat-dialog-actions align="end">
             <button mat-button color="warn" mat-dialog-close>Cancelar</button>
-            <button mat-button type="submit" color="primary" [mat-dialog-close]="true" cdkFocusInitial [disabled]="formVehiculo.invalid" (click)="createVehiculo()">Guardar</button>
+            <button mat-button type="submit" style="background-color: #EB7827; color: white;" [mat-dialog-close]="true" cdkFocusInitial [disabled]="formVehiculo.invalid" (click)="createVehiculo()">Guardar</button>
         </mat-dialog-actions>
 
 

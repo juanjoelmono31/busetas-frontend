@@ -140,10 +140,12 @@ export class DashBoardComponent implements OnInit {
     this.ngOnInit()
   }
 
-  openInfoVehiculo(placa:string) {
+  openInfoVehiculo(placa:string, id: string) {
+    console.log("ID", id);
+    
     const dialogRef = this.dialog.open(InfoVehiculosComponent, {  
       width: '1500px',
-      data: { placa }
+      data: { placa, id }
     });
   }
 }

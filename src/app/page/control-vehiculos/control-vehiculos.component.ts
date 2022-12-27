@@ -34,6 +34,11 @@ export class ControlVehiculosComponent implements OnInit {
   valores = 0;
   sumaGastos = 0;
   netoVehiculo = 0
+  panelOpen = false;
+  info=false
+  otrosGastos: any [] = []
+
+ 
 
   constructor(private service_controlVehiculo: ControlVehiculoService, private service_conductor: ConductorService, private service_vehiculo: VehiculoService, private fb: FormBuilder, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: {infoControl: object}) { 
     this.dataUser = JSON.parse(localStorage.getItem('infoUser')!);
@@ -70,6 +75,19 @@ export class ControlVehiculosComponent implements OnInit {
   borrarDatos() {
     
   }
+
+  separadorMiles(numero: any){
+    let partesNumero = numero.toString().split('.')
+
+    partesNumero[0] = partesNumero[0].replace(/\B(?=(\{3})+(?!\d))/g, ',')
+
+    return partesNumero.join('.')
+    
+  }
+
+  
+
+  
 
   openDialog() {
     const dialogRef = this.dialog.open(ListCoductoresComponent);
@@ -156,8 +174,8 @@ export class ControlVehiculosComponent implements OnInit {
 
   agregarOtros() {
     const lessonForm = this.fb.group({
-      descripcion: [''],
-      valor: [''],
+      descripcion: ['', Validators.required],
+      valor: ['', Validators.required],
     });
 
     this.otros.push(lessonForm);
@@ -177,11 +195,15 @@ export class ControlVehiculosComponent implements OnInit {
     } else {
       return this.bonificacion = 0
     }
+  }
 
-    
-
-    
-    
-    
+  revisarInfo(){
+    this.otrosGastos = [];
+    console.log(this.formControlVehiculo.value);
+    for (let index = 0; index < this.formControlVehiculo.value.otros.length; index++) {
+      const Gastos = this.formControlVehiculo.value.otros[index];
+      this.otrosGastos.push(Gastos);
+    }  
+      this.info = true    
   }
 }

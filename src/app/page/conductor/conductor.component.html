@@ -3,7 +3,7 @@
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label class="lable"> Ingrese el nombre y apellidos </mat-label>
-                <input matInput type="text" name="nombre" formControlName="nombre" >
+                <input matInput type="text" name="nombre" formControlName="nombre" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" >
             </mat-form-field>
 
 
@@ -11,14 +11,14 @@
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label class="lable"> Ingrese el numero de celular</mat-label>
-                <input matInput type="text" name="numero_celular" formControlName="numero_celular" >
+                <input matInput type="number" name="numero_celular" formControlName="numero_celular" >
             </mat-form-field>
 
         </div>
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label class="lable"> ID para inicio de sesion </mat-label>
-                <input matInput type="text" name="cedula" formControlName="cedula" >
+                <input matInput type="number" name="cedula" formControlName="cedula" >
             </mat-form-field>
 
         </div>
@@ -46,7 +46,7 @@
 
         <mat-dialog-actions align="end">
             <button mat-button color="warn" mat-dialog-close>Cancelar</button>
-            <button mat-button type="submit" color="primary" [mat-dialog-close]="true" [disabled]="formConductor.invalid" cdkFocusInitial>Guardar</button>
+            <button mat-button type="submit" style="background-color: #EB7827; color: white;" [mat-dialog-close]="true" [disabled]="formConductor.invalid" cdkFocusInitial>Guardar</button>
         </mat-dialog-actions>
 
 

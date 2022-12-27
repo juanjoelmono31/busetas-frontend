@@ -1,6 +1,6 @@
 .formulario_variables {
     width: 100%;
-    max-width: 600px;
+    // max-width: 600px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -11,4 +11,8 @@
 .input_especial mat-form-field {
     margin-left: 8px;
     width: 250px;
+  }
+
+  .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
   }

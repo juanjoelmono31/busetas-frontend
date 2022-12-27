@@ -4,10 +4,10 @@
 <mat-tab-group mat-align-tabs="end">
     <mat-tab label="Lista Control Rutas">
         <mat-card class="card">
-            <button mat-raised-button color="primary" (click)="recargar()">
+            <button mat-raised-button style="background-color: #EB7827; color: white;" (click)="recargar()">
                 <mat-icon>refresh</mat-icon>
             </button>
-            <button mat-raised-button color="primary" (click)="exportAsXLSX()" class="button mt-6">
+            <button mat-raised-button style="background-color: #EB7827; color: white;" (click)="exportAsXLSX()" class="button mt-6">
             <i class="material-icons">file_download</i>
             EXPORTAR INFORMACIÓN A EXCEL ({{Fecha}})
             </button>
@@ -139,12 +139,16 @@
             <span style="font-size: 25px">LISTADO DE VEHICULOS CON INFORMACION DE MANTENIMIENTO - RUTAS DIARIAS - PANEL DE NOTIFICACIONES  </span>
         </div>
         <div class="row">
-            <div class="col-md-3" *ngFor="let item of listaVehiculos" (click)="openInfoVehiculo(item.placa)">
+            <div class="col-md-3" *ngFor="let item of listaVehiculos" (click)="openInfoVehiculo(item.placa, item._id)">
                 <br />
                 <mat-card class="cardNetos">
                     <mat-card-title>PLACA {{ item.placa }}</mat-card-title>
                     <mat-card-subtitle>Numero Vehiculo {{ item.numero }}</mat-card-subtitle>
                     <mat-card-content>
+                        <label *ngIf="item.estado === 'Activo' ">  <mat-icon  style="color: #5ee90e;">fiber_manual_record </mat-icon> Activo</label>
+                        <label *ngIf="item.estado === 'PyP' ">  <mat-icon *ngIf="item.estado === 'PyP'"  style="color: #eb1919;">fiber_manual_record</mat-icon> Pico y Placa</label>
+                        <label *ngIf="item.estado === 'Taller' ">  <mat-icon *ngIf="item.estado === 'Taller'"  style="color: #eee234;">fiber_manual_record</mat-icon> Taller</label>
+                        <label *ngIf="item.estado === 'Mantenimiento' ">  <mat-icon *ngIf="item.estado === 'Mantenimiento'"  style="color: #19ddeb;">fiber_manual_record</mat-icon> Mantenimiento</label>
                     </mat-card-content>
                 </mat-card>
             </div>

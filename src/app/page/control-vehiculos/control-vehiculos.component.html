@@ -24,28 +24,28 @@
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label class="lable">Numero de vuletas</mat-label>
-                <input matInput type="number" name="numero_vueltas" formControlName="numero_vueltas" class="form-control style" placeholder="" />
+                <input matInput type="number" name="numero_vueltas" formControlName="numero_vueltas" (keyup)="separadorMiles($event)"  />
             </mat-form-field>
         </div>
         <br />
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label class="lable">Registradora salida</mat-label>
-                <input matInput type="text" name="reg_salida" formControlName="reg_salida" class="form-control style" placeholder="" />
+                <input matInput type="number" name="reg_salida" formControlName="reg_salida"   />
             </mat-form-field>
         </div>
         <br />
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label class="lable">Registradora llegada</mat-label>
-                <input matInput type="text" name="reg_llegada" formControlName="reg_llegada" class="form-control style" placeholder="" />
+                <input matInput type="number" name="reg_llegada" formControlName="reg_llegada"   />
             </mat-form-field>
         </div>
         <br />
         <div class="form-group">
             <mat-form-field mat-form-field class="example-full-width">
                 <mat-label class="lable">A.C.P.M </mat-label>
-                <input matInput type="number" name="acpm" formControlName="acpm" class="form-control style" placeholder="" />
+                <input matInput type="number" name="acpm" formControlName="acpm"  />
             </mat-form-field>
         </div>
         <br />
@@ -64,28 +64,113 @@
                 </mat-expansion-panel-header>
                 <div formArrayName="otros">
                     <div class="row" [formGroupName]="i" *ngFor="let direccion of otros.controls; let i = index">
-                        <mat-form-field mat-form-field class="example-full-width">
-                            <mat-label>Descripcion</mat-label>
-                            <input matInput type="text" formControlName="descripcion" />
-                        </mat-form-field>
-                        <mat-form-field mat-form-field class="example-full-width">
-                            <mat-label>Valor</mat-label>
-                            <input matInput type="number" formControlName="valor" />
-                        </mat-form-field>
+                        <div class="col-md-6">
+                            <mat-form-field mat-form-field style="width: 95%" >
+                                <mat-label>Descripcion</mat-label>
+                                <input matInput type="text" formControlName="descripcion" style="text-transform:capitalize" />
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <mat-form-field mat-form-field style="width: 95%;">
+                                <mat-label>Valor</mat-label>
+                                <input matInput type="number" formControlName="valor" />
+                            </mat-form-field>
+                        </div>
+                        
                     </div>
                 </div>
-                <button button mat-fab color="primary" class="button" (click)="agregarOtros()">
+                <button button mat-fab style="background-color: #EB7827; color: white;" class="button" (click)="agregarOtros()">
           <mat-icon>add</mat-icon>
         </button>
             </mat-expansion-panel>
         </mat-accordion>
         <br />
-
-        <mat-dialog-actions align="end">
-            <button mat-button color="warn" mat-dialog-close>Cancelar</button>
-            <button mat-button type="submit" color="primary" [mat-dialog-close]="true"  (click)="crearControlVehiculo()" cdkFocusInitial>
-        Guardar
-      </button>
+        
+        <mat-accordion class="input_especial" *ngIf="info">
+            <mat-expansion-panel (opened)="panelOpen = true" (closed)="panelOpen = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <b>Revisar informacion </b>  
+              </mat-panel-title>
+              <mat-panel-description>
+                {{panelOpen ? '' : ''}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-6 from-group">
+                <mat-label> <b> Fecha: </b> {{fechaRodamiento}} </mat-label>
+              </div>
+          
+              <div class="col-6 from-group">
+                <mat-label> <b> Ruta: </b> {{Ruta }}  </mat-label>
+              </div>
+            </div>
+              <br>
+              <div class="row">
+                <div class="col-6 from-group">
+                  <mat-label> <b> Placa: </b> {{Placa}}  </mat-label>
+                </div>
+          
+                <div class="col-6 from-group">
+                  <mat-label> <b> Conductor: </b> {{conductor.nombre}}  </mat-label>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6 from-group">
+                  <mat-label> <b> Numero de vueltas: </b> {{formControlVehiculo.value.numero_vueltas}}  </mat-label>
+                </div>
+          
+                <div class="col-6 from-group">
+                  <mat-label> <b> Reg salida: </b> {{formControlVehiculo.value.reg_salida}}  </mat-label>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6 from-group">
+                  <mat-label> <b> Reg llegada: </b> {{formControlVehiculo.value.reg_llegada}}  </mat-label>
+                </div>
+          
+                <div class="col-6 from-group">
+                  <mat-label> <b> ACPM: </b> {{formControlVehiculo.value.acpm }}  </mat-label>
+                </div>
+                <br>
+                <div class="col-md-12" style="padding-top: 5px">
+                    <b> Otros Gastos </b>
+                </div>
+                <br>
+                <div class="col-md-12 from-group row" *ngFor="let item of otrosGastos; let i = index  ">
+                    <div class="col-md-6">
+                        <mat-label> <b> Gasto ({{i+1}}) :  </b>  {{item.descripcion}}  </mat-label>
+                    </div>    
+                    <div class="col-md-6">
+                        <mat-label>  <b> Valor =  </b> {{item.valor | currency}} </mat-label>
+                    </div>    
+                </div>
+              </div>
+              <br>
+              <br>
+              <button
+              mat-button
+              cdkFocusInitial
+              style="background-color: #EB7827; color: white;"
+              (click)="crearControlVehiculo()" 
+              mat-dialog-close
+              >
+              Guardar
+            </button>
+            
+            
+            
+        </mat-expansion-panel>
+    </mat-accordion>
+    
+    <mat-dialog-actions align="end">
+        <button mat-button color="warn" mat-dialog-close>Cerrar</button>
+        <button mat-button type="submit" style="background-color: #EB7827; color: white;"   (click)="revisarInfo()" cdkFocusInitial>
+            Revisar
+        </button>
         </mat-dialog-actions>
     </form>
 </div>

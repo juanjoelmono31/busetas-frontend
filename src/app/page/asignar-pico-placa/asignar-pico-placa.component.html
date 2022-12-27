@@ -1,0 +1,55 @@
+<app-menu></app-menu>
+<br>
+
+	<mat-card class="card"> 
+		<h1>Asiganar pico y placa</h1>
+		<br>
+		<form [formGroup]="fromPicoPlaca">
+			<div class="d-flex">
+		
+				<div class="wrapper-calendar col-md-6" >
+					<div class="header-calendar">
+						<div>
+							<button mat-flat-button style="background-color: #EB7827; color: white;" (click)="changeMonth(-1)" class="btn-prev button">Antes</button>
+						</div>
+						<h1><b>{{dateSelect | date:'MMMM'}}</b> </h1>
+						<div>
+							<button mat-flat-button style="background-color: #EB7827; color: white;" (click)="changeMonth(1)" class="btn-next button">Siguiente</button>
+						</div>
+					</div>
+					<br>
+					<ol>
+						<li *ngFor="let day of week" class="day-name">{{day | slice:0:3}}</li>
+				
+						<li (click)="clickDay(day)" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'"
+						 *ngFor="let day of monthSelect;let first = first">
+							<span>{{day?.value}}</span>
+						</li>
+					</ol>
+					
+					<hr>
+					
+					<!-- <div >
+						<b>Fecha seleccionada: </b>{{dateValue | date}}
+					</div> -->
+			</div>
+				 <div class="col-md-6">
+					<div >
+						<b>Fecha seleccionada: </b>{{dateValue | date}}
+					</div>
+					<br>
+					<mat-form-field appearance="fill">
+						<mat-label>Seleccione vehiculos</mat-label>
+						<mat-select [formControl]="toppings" multiple >
+						  <mat-option *ngFor="let item of listVehiculos" [value]="item._id">{{item.placa}} - ({{item.numero}}) </mat-option>
+						</mat-select>
+					  </mat-form-field>
+					  <br>
+					  
+					  <button mat-flat-button style="background-color: #EB7827; color: white;" (click)="createPicoPlaca()">Asignar</button>
+				</div>
+			</div>
+		</form>
+	</mat-card>
+
+

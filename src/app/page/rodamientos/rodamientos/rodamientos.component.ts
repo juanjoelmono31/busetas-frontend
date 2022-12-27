@@ -19,15 +19,18 @@ interface Food {
 })
 export class RodamientosComponent implements OnInit {
   fromRodamiento!: FormGroup
+  
+  panelOpen = false;
+  info=false
   selectedValue!: string;
   listVehiculos: any = [];
-  listRutas: any = ['#1','#2', '#4/7', '#6', '#8', '#9', '#11', '#14', '#15', '#17', '#18', '#19', '#20', '#21',
-'#22', '#23', '#24', '#28', '#29', '#31', '#33', '#35', '#37', '#40', '#43', '#48', '#50', '#53', '#82', '#90' ];
+  listRutas: any = ['#1','#2', '#4/7', '#6', '#8', '#9', '#11', '#13','#14', '#15', '#17', '#18', '#19', '#20', '#21',
+'#22', '#23', '#24', '#28', '#29', '#31', '#33', '#35', '#37', '#40', '#43', '#48', '#50', '#53', '#82', '#90', 'ALIMENTADOR' ];
 
   listLugares: any = ['CABALLERIZAS','PANOPTICO', 'CAÑAVERAL', 'CLARITA BOTERO', 'ARBOLEDA CAMPESTRE', 'BOQUERON PARTE ALTA', 'COLINAS DEL SUR 1',
 'PROTECHO B', 'PUERTA DE ALCALA', '20 DE JULIO', 'LA CEIBITA', 'NOGALES', 'SANTA CRUZ', 'CASA BLANCA', 'CLINALTEC', 'PRADERA', 'CERRO GORDO', 'LA FLORIDA',
 'PEAJE GUALANDAY', 'GALAN', 'CALAMBEO', 'CARMEN DE BULIRA', 'LIBERTADOR', 'GALARZA', 'GAVIOTA', 'TIERRA FIRME', 'TIERRA FIRME', 'ANCON TESORITO', 'MIRADOR',
- ];
+'CAIKE', 'LLANOS', 'SB', 'TUNELES', 'IGLESIA TOPACIO', 'SAN ISIDRO', 'PICALEÑA', 'JUNTAS'];
 
   foods: Food[] = [
     { value: '≥', viewValue: '≥ ' },
@@ -50,9 +53,12 @@ export class RodamientosComponent implements OnInit {
 
 
       this.listVehiculos = data
+      console.log('ESTOS SON LOS VEHICULOS', this.listVehiculos);
+      
     })
 
   }
+  
 
   crearForm() {
     this.fromRodamiento = this.fb.group({
@@ -97,6 +103,11 @@ export class RodamientosComponent implements OnInit {
         })
       }
     })
+  }
+
+  revisarInfo(){
+this.info = true
+
   }
 
 }
