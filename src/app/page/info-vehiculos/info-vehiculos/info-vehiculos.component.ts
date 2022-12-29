@@ -40,6 +40,9 @@ export class InfoVehiculosComponent implements OnInit {
   listaMantenimiento: any;
   liquidoTotal = 0;
 
+  listaGastosAdminMes : any= [];
+  listaGastosTallerMes : any= [];
+
   constructor(@Inject(MAT_DIALOG_DATA) public placa: any, @Inject(DOCUMENT) private document: Document, private exportService: ExporterService, private service_controlVehiculo: ControlVehiculoService, private fb: FormBuilder, private service_vehiculo: VehiculoService,) {
     this.FiltroFecha = this.fb.group({
       StartDate: ['', Validators.required],
@@ -54,13 +57,7 @@ export class InfoVehiculosComponent implements OnInit {
       console.log("LLEGA INFO DEL SERVICIO DEL VEHICULO", data);
     })
 
-    this.service_vehiculo.getVehiculoID(this.placa.id).subscribe((data: any)=>{
-      this.listaGastos = data.gastos_admin
-      this.listaMantenimiento = data.mantenimiento_taller
-      this.calculosAdmin();
-      this.clalculosMantenimiento();
-      this.calcularLiquidoTotal();
-    })
+
         
     this.placasFind();
     this.selectMes(this.fechaArray);
@@ -99,7 +96,7 @@ export class InfoVehiculosComponent implements OnInit {
   crearGastosAdmin() {
     for (let index = 0; index < this.formInfoVehiculos.value.gastos_admin.length; index++) {
         const element = this.formInfoVehiculos.value.gastos_admin[index];
-        this.formInfoVehiculos.value.gastos_admin[index].fechaGasto =  this.pipe.transform(Date.now(), 'MM/dd/yyyy')
+        this.formInfoVehiculos.value.gastos_admin[index].fechaGasto =  this.pipe.transform(this.formInfoVehiculos.value.gastos_admin[index].fechaGasto, 'MM/dd/yyyy')
         this.listaGastos.push(element)
       }
 
@@ -114,7 +111,7 @@ export class InfoVehiculosComponent implements OnInit {
   crearMantenimientoTaller() {
     for (let index = 0; index < this.formInfoVehiculos.value.mantenimiento_taller.length; index++) {
       const element = this.formInfoVehiculos.value.mantenimiento_taller[index];
-      this.formInfoVehiculos.value.mantenimiento_taller[index].fechaMantemiento = this.pipe.transform(Date.now(), 'MM/dd/yyyy')
+      this.formInfoVehiculos.value.mantenimiento_taller[index].fechaMantemiento = this.pipe.transform(this.formInfoVehiculos.value.mantenimiento_taller[index].fechaMantemiento, 'MM/dd/yyyy')
       this.listaMantenimiento.push(element)
       console.log("LISTA MANTENIMIENTO", this.listaMantenimiento);
       
@@ -152,20 +149,64 @@ export class InfoVehiculosComponent implements OnInit {
     
     for (let index = 0; index < this.infoVehiculo.length; index++) {
       const fecha = this.infoVehiculo[index].fecha;
+    
       this.selectMes(fecha);
       const valorNetoTotal = this.infoVehiculo[index].neto_total;
-      if (this.fechaArray === fechaSelect) {
+      if (this.fechaArray === fechaSelect) {    
         this.infoVehiculosMes.push(this.infoVehiculo[index]);
         this.sumaNetos = valorNetoTotal + this.sumaNetos;
-        this.sumaTotales(this.infoVehiculo[index]);
+        this.sumaTotales(this.infoVehiculo[index]);    
       }
     }
+    this.cargarGastos(fechaSelect)
   }
 
   selectMes(fecha: string) {
-    
     this.fechaArray = moment(fecha).format('MMMM');  
-    console.log(this.fechaArray);
+  }
+
+  cargarGastos(fecha: string){
+
+    this.service_vehiculo.getVehiculoID(this.placa.id).subscribe((data: any)=>{
+      this.listaGastos = data.gastos_admin
+      this.listaMantenimiento = data.mantenimiento_taller
+      this.cargarInfoGastosAdmin(fecha);
+      this.cargarInfoGastosTaller(fecha);
+      // this.clalculosMantenimiento();
+      this.calcularLiquidoTotal();
+    })
+    
+  }
+
+  cargarInfoGastosAdmin(fecha: string){
+    
+    for (let index = 0; index < this.listaGastos.length; index++) {
+      const elemntfecha = this.listaGastos[index].fechaGasto;
+      const fechaGastos = moment(elemntfecha).format('MMMM');
+       
+      // comparar mes seleccionado con el mes del elemneto de la lista de gastos
+      if(fechaGastos === fecha){
+        this.listaGastosAdminMes.push(this.listaGastos[index])
+      }
+    }
+    this.calculosAdmin();
+    console.log("GASTOS ADMIN DEL MES ", this.listaGastosAdminMes);
+    
+  }
+
+  cargarInfoGastosTaller(fecha: string){
+    for (let index = 0; index < this.listaMantenimiento.length; index++) {
+      const elemntfecha = this.listaMantenimiento[index].fechaMantemiento;
+      const fechaGastos = moment(elemntfecha).format('MMMM');
+       
+      // comparar mes seleccionado con el mes del elemneto de la lista de gastos
+      if(fechaGastos === fecha){
+        this.listaGastosTallerMes.push(this.listaMantenimiento[index])
+      }
+    }
+    this.clalculosMantenimiento();
+    console.log("GASTOS TALLER DEL MES ", this.listaGastosTallerMes);
+    
   }
 
   exportAsXLSX() {
@@ -188,22 +229,26 @@ export class InfoVehiculosComponent implements OnInit {
     this.totalBasicos = 0;
     this.totalGastos = 0;
     this.infoVehiculosMes = [];
+    this.listaGastosAdminMes = [];
+    this.listaGastosTallerMes = [];
     this.sumaNetos = 0;
+    this.valores = 0;
+    this.valoresMantenimientos = 0;
+    this.liquidoTotal = 0;
   }
 
 
   calculosAdmin() {
-    
-    for (let index = 0; index < this.listaGastos.length; index++) {
-      const element = this.listaGastos[index].valor;
+    for (let index = 0; index < this.listaGastosAdminMes.length; index++) {
+      const element = this.listaGastosAdminMes[index].valor;
       this.valores = element + this.valores
     }
     console.log("ESTOS SON LOS VALORES", this.valores);
   }
 
   clalculosMantenimiento() {
-    for (let index = 0; index < this.listaMantenimiento.length; index++) {
-      const element = this.listaMantenimiento[index].valor_mantenimiento;
+    for (let index = 0; index < this.listaGastosTallerMes.length; index++) {
+      const element = this.listaGastosTallerMes[index].valor_mantenimiento;
       this.valoresMantenimientos = element + this.valoresMantenimientos
     }
     console.log("ESTOS SON LOS VALORES SUMADOS DE LOS MANTENIMIENTOS", this.valoresMantenimientos);

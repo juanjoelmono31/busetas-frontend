@@ -161,13 +161,13 @@
             <!-- GASTOS ADMINISTRATIVOS -->
             <mat-tab label="Gatos administrativos"> 
                 <br>
-                    <div class="container mt-5">
+          <div class="container mt-5">
                         <div class="row align-items-center">
                             <div class="col">
                                 <h2>Resumen gastos administrativos</h2>
                                 <br>
                                 
-                                            <div class="row" *ngFor="let item of listaGastos" style="width: 80%; margin-left: auto; margin-right: auto;">
+                                            <div class="row" *ngFor="let item of listaGastosAdminMes" style="width: 80%; margin-left: auto; margin-right: auto;">
                                                 <div class="col-md-4">
                                                     <label for=""> <b>Fecha gasto : </b> &nbsp;&nbsp; {{item.fechaGasto}}</label>
                                                   </div>
@@ -261,7 +261,7 @@
                             <div class="col">
                                 <h2>Resumen gastos de mantenimiento y taller</h2>
                                 <br>
-                                            <div class="row" *ngFor="let item of listaMantenimiento" style="width: 80%; margin-left: auto; margin-right: auto;">
+                                            <div class="row" *ngFor="let item of listaGastosTallerMes" style="width: 80%; margin-left: auto; margin-right: auto;">
                                                 <div class="col-md-4">
                                                     <label for=""> <b> Fecha mantenimiento:</b> &nbsp;&nbsp; {{item.fechaMantemiento}}</label>
                                                 </div>
@@ -289,7 +289,7 @@
                                 <mat-panel-title> <b>Agregar gastos de mantenimiento y taller</b> </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div class="mt-3" style="text-align: center;" >
-                                <label for="">INGRESAR INFORMACION DE GASTOS </label>
+                                <label for="">INGRESAR INFORMACION DE GASTOS PARA MANTENIMIENTO Y TALLER  </label>
                             </div>
                             <div formArrayName="mantenimiento_taller" class="mt-4" >
                                 <div class="row" [formGroupName]="i" *ngFor="let direccion of mantenimiento_taller.controls; let i = index">
@@ -307,7 +307,7 @@
                                     <div class="col-md-4">
                                           <mat-form-field mat-form-field style="width: 50%;">
                                             <mat-label>Descripcion</mat-label>
-                                            <input matInput type="text" formControlName="descripcion_mantenimiento" />
+                                            <input matInput type="text" formControlName="descripcion_mantenimiento" style="text-transform:capitalize" />
                                         </mat-form-field>
                                     </div>
                                     
