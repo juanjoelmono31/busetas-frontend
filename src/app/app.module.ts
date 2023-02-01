@@ -35,8 +35,6 @@ import { InfoVehiculosComponent } from './page/info-vehiculos/info-vehiculos/inf
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AsignarPicoPlacaComponent } from './page/asignar-pico-placa/asignar-pico-placa.component';
-import { BryntumCalendarModule } from '@bryntum/calendar-angular';
-
 
 
 @NgModule({
@@ -77,6 +75,8 @@ import { BryntumCalendarModule } from '@bryntum/calendar-angular';
     MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    
+    
    
    
    
