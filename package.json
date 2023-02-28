@@ -21,8 +21,6 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
-    "@bryntum/calendar": "npm:@bryntum/calendar-trial@^5.2.4",
-    "@bryntum/calendar-angular": "^5.2.4",
     "@popperjs/core": "^2.11.5",
     "@types/file-saver": "^2.0.5",
     "alertifyjs": "^1.13.1",
