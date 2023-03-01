@@ -24,7 +24,7 @@
                     <th scope="col">N° Vehiculo</th>
                     <th scope="col">Placa</th>
                     <th scope="col">Modelo</th>
-                    <th scope="col">Editar</th>
+                    <!-- <th scope="col">Editar</th> -->
                 </tr>
             </thead>
             <tbody *ngFor="let item of listVehiculos">
@@ -32,9 +32,9 @@
                     <td>{{item.numero}}</td>
                     <td>{{item.placa}}</td>
                     <td>{{item.modelo}}</td>
-                    <td>
+                    <!-- <td>
                         <mat-icon (click)="openDialog(item)">edit</mat-icon>
-                    </td>
+                    </td> -->
 
                 </tr>
             </tbody>

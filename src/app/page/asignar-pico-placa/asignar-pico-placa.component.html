@@ -33,23 +33,34 @@
 						<b>Fecha seleccionada: </b>{{dateValue | date}}
 					</div> -->
 			</div>
-				 <div class="col-md-6">
-					<div >
+				 <div >
+					<div class="col-md-6">
+						<mat-form-field appearance="fill">
+							<mat-label>Seleccione vehiculos</mat-label>
+							<mat-select [formControl]="toppings" multiple >
+								<mat-option *ngFor="let item of listVehiculos" [value]="item._id">{{item.placa}} - ({{item.numero}}) </mat-option>
+							</mat-select>
+						</mat-form-field>
+						<br>
+						<br>	
 						<b>Fecha seleccionada: </b>{{dateValue | date}}
+						<button mat-button (click)="asignarFecha(dateValue)" class="btn" style="background-color: #EB7827; color: white;">
+							<mat-icon>add</mat-icon>
+						</button>
 					</div>
 					<br>
-					<mat-form-field appearance="fill">
-						<mat-label>Seleccione vehiculos</mat-label>
-						<mat-select [formControl]="toppings" multiple >
-						  <mat-option *ngFor="let item of listVehiculos" [value]="item._id">{{item.placa}} - ({{item.numero}}) </mat-option>
-						</mat-select>
-					  </mat-form-field>
-					  <br>
-					  
-					  <button mat-flat-button style="background-color: #EB7827; color: white;" (click)="createPicoPlaca()">Asignar</button>
+					<br>
+					
+					
 				</div>
 			</div>
+			<div style="margin-left: auto;">
+				<button mat-flat-button style="background-color: #EB7827; color: white;"  (click)="createPicoPlaca()">Asignar</button>
+			</div>
+			
 		</form>
 	</mat-card>
+
+	
 
 

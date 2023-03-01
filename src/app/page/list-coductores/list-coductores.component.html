@@ -18,21 +18,21 @@
     </div>
 
     <div class="lista-conductor" id="lista_conductor">
-        <table class="table">
+        <table class="table" >
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">N° Buseta</th>
+                    <th scope="col">N° Buseta (ID)</th>
                     <!-- <th scope="col">Celular</th> -->
                     <th scope="col">Rol</th>
                 </tr>
             </thead>
             <tbody *ngFor="let item of listConductores">
-                <tr>
+                <tr *ngIf="item.rol != 'admin' ">
                     <td>{{item.nombre | titlecase}}</td>
                     <td>{{item.cedula}}</td>
                     <!-- <td>{{item.numero_celular}}</td> -->
-                    <td>{{item.rol}}</td>
+                    <td>{{item.rol | titlecase}}</td>
                 </tr>
             </tbody>
         </table>

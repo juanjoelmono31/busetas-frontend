@@ -32,30 +32,32 @@ export class AsignarPicoPlacaComponent implements OnInit {
   Fecha: any;
   Hoy: any
   listVehiculos: any = [];
-  constructor(private fb: FormBuilder, private service_vehiculos: VehiculoService ) { }
+  listaFechaPyP: any = [];
+
+  constructor(private fb: FormBuilder, private service_vehiculos: VehiculoService) { }
 
   ngOnInit(): void {
     this.Hoy = new Date
-    this.Fecha = this.pipe.transform( this.Hoy, 'MM/dd/yyyy')
+    this.Fecha = this.pipe.transform(this.Hoy, 'MM/dd/yyyy')
     this.crearForm()
     this.service_vehiculos.getVehiculo().subscribe((data: any) => {
       console.log('INFO DEL SERVICIO', data);
       this.listVehiculos = data
     })
-    this.getDaysFromDate((this.Hoy.getMonth()+1),this.Hoy.getFullYear())
+    this.getDaysFromDate((this.Hoy.getMonth() + 1), this.Hoy.getFullYear())
   }
 
-  crearForm(){
+  crearForm() {
     this.fromPicoPlaca = this.fb.group({
       fecha: ['', Validators.required],
-      estado: ['PyP', Validators.required],
+      estado: ['', Validators.required],
       placas: ['', Validators.required]
     })
   }
 
 
 
-  getDaysFromDate(month:any, year:any) {
+  getDaysFromDate(month: any, year: any) {
 
     const startDate = moment(`${year}/${month}/01`)
     const endDate = startDate.clone().endOf('month')
@@ -70,14 +72,14 @@ export class AsignarPicoPlacaComponent implements OnInit {
       return {
         name: dayObject.format("dddd"),
         value: a,
-        indexWeek: dayObject.isoWeekday()
+        indexWeek: dayObject.isoWeekday(),
       };
     });
 
     this.monthSelect = arrayDays;
   }
 
-  changeMonth(flag:any) {
+  changeMonth(flag: any) {
     if (flag < 0) {
       const prevDate = this.dateSelect.clone().subtract(1, "month");
       this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"));
@@ -87,42 +89,49 @@ export class AsignarPicoPlacaComponent implements OnInit {
     }
   }
 
-  clickDay(day:any) {
+  clickDay(day: any) {
     const monthYear = this.dateSelect.format('YYYY-MM')
     const parse = `${monthYear}-${day.value}`
     const objectDate = moment(parse)
     this.dateValue = objectDate;
-    const FechaSelect = this.pipe.transform( this.dateValue, 'MM/dd/yyyy')
+    const FechaSelect = this.pipe.transform(this.dateValue, 'MM/dd/yyyy')
     this.fromPicoPlaca.value.fecha = FechaSelect;
     console.log('HOY', this.Fecha);
     console.log('Fecha select', FechaSelect);
+
+
   }
 
+  asignarFecha(fecha: any) {
+    const dataPicoPlaca = this.pipe.transform(fecha, 'MM/dd/yyyy')
+    this.listaFechaPyP.push(dataPicoPlaca)
+    alertify.success('Fecha asignada correctamente')
+  }
 
   createPicoPlaca() {
     console.log(this.toppings.value);
     const placas = this.toppings.value
-    
+
     const dataPicoPlaca = {
       "pico_placa": {
-        "fecha": this.fromPicoPlaca.value.fecha,
+        "fecha": this.listaFechaPyP
       },
-      "estado": this.fromPicoPlaca.value.estado
+      // "estado": this.fromPicoPlaca.value.estado
     }
-    
+
     console.log("datos formulario", dataPicoPlaca);
     console.log("Placas para actualziar", placas);
 
     for (let index = 0; index < placas.length; index++) {
       const id_vehiculo = placas[index];
 
-      this.service_vehiculos.putPicoPlaca(id_vehiculo,dataPicoPlaca).subscribe((data: any)=>{
-        alertify.success('Asignacion de pico y placa relizada');
+      this.service_vehiculos.putPicoPlaca(id_vehiculo, dataPicoPlaca).subscribe((data: any) => {
         console.log("SE ACTUALIZO CON EXITO", data);
-        
+        alertify.success(`Asignacion de pico y placa relizada ${data.updatedPico_placaYestado.placa}`);
+
       })
-      
+
     }
-    
+
   }
 }

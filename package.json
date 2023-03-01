@@ -30,6 +30,7 @@
     "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
     "moment": "^2.29.4",
+    "multiple-date-picker": "^2.1.6",
     "ngx-mat-datetime-picker": "^3.0.0",
     "ngx-material-timepicker": "^5.5.3",
     "primeicons": "^6.0.1",
