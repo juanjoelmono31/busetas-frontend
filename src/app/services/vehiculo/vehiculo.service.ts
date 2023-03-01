@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VehiculoModel } from 'src/app/models/vehiculo.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehiculoService {
 
+  WEB_URL: string = environment.serverUrl;
+
   constructor(private http: HttpClient) { }
 
   getVehiculo() {
-    return this.http.get('http://localhost:3000/vehiculo');
+    return this.http.get(this.WEB_URL + '/vehiculo');
   }
 
   getVehiculoID(id: string) {
-    return this.http.get(`http://localhost:3000/vehiculo/${id}`);
+    return this.http.get(this.WEB_URL + `/vehiculo/${id}`);
   }
 
   postVehiculo(vehiculoRegister: VehiculoModel) {
     console.log("LLEGA INFO DEL FORMULARIO", vehiculoRegister);
 
-    return this.http.post('http://localhost:3000/vehiculo', vehiculoRegister)
+    return this.http.post(this.WEB_URL + '/vehiculo', vehiculoRegister)
     
   }
 
