@@ -31,7 +31,7 @@ export class DashBoardComponent implements OnInit {
   listaVehiculos: any = []
   rodamientoVehiculo: any;
   basico = 20000
-  valorPasaje = 2080;
+  valorPasaje = 2380;
   valores = 0
   sumaNetosDiarios = 0;
   today: Date = new Date();

@@ -54,6 +54,11 @@ export class VehiculosComponent implements OnInit {
 
       mantenimiento: this.fb.array([]),
       taller: this.fb.array([]),
+      estado: ['Activo'],
+      pico_placa: [''],
+      gastos_admin: this.fb.array([]),
+      mantenimiento_taller: this.fb.array([]),
+
       
       
     })

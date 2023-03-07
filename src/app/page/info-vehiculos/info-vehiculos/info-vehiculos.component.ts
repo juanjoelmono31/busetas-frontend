@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
+import * as alertify from 'alertifyjs'
 import { ControlVehiculoService } from 'src/app/services/control-vehiculo/control-vehiculo.service';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { VehiculoService } from 'src/app/services/vehiculo/vehiculo.service';
@@ -45,7 +46,7 @@ export class InfoVehiculosComponent implements OnInit {
 
   FiltroFecha!: FormGroup
   infoVehiculo: any = []
-  valorPasaje = 2080;
+  valorPasaje = 2380;
   basico = 20000;
 
   infoVehiculosMes: any = [];
@@ -137,6 +138,7 @@ export class InfoVehiculosComponent implements OnInit {
         this.formInfoVehiculos.value.gastos_admin[index].fechaGasto =  this.pipe.transform(this.formInfoVehiculos.value.gastos_admin[index].fechaGasto, 'MM/dd/yyyy')
         this.listaGastos.push(element)
       }
+      alertify.success('Gasto creado')
 
       const gastosAdmin = {
         gastos_admin:
@@ -150,10 +152,9 @@ export class InfoVehiculosComponent implements OnInit {
     for (let index = 0; index < this.formInfoVehiculos.value.mantenimiento_taller.length; index++) {
       const element = this.formInfoVehiculos.value.mantenimiento_taller[index];
       this.formInfoVehiculos.value.mantenimiento_taller[index].fechaMantemiento = this.pipe.transform(this.formInfoVehiculos.value.mantenimiento_taller[index].fechaMantemiento, 'MM/dd/yyyy')
-      this.listaMantenimiento.push(element)
-      console.log("LISTA MANTENIMIENTO", this.listaMantenimiento);
-      
+      this.listaMantenimiento.push(element)      
     }
+    alertify.success('Mantenimiento creado')
     const mantenimientoTaller = {
       mantenimiento_taller:
         this.listaMantenimiento

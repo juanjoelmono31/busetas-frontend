@@ -28,7 +28,7 @@ export class ControlVehiculosComponent implements OnInit {
   fechaRodamiento: any;
   Placa: any;
   bonificacion: any
-  valorPasaje = 2080;
+  valorPasaje = 2380;
   basico = 20000;
   pasajeros: any;
   valores = 0;
